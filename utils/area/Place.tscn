@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "\"\"\"
+Place
+A place in the world, to be switched as main world scenes.
+\"\"\"
+extends Node
+class_name Place
+
+signal switch_to(old_scene, new_scene)
+
+func _ready():
+	pass
+
+func on_switch_to_scene(new_scene_path):
+	emit_signal(\"switch_to\", name, new_scene_path)
+"
+
+[node name="Place" type="Node"]
+script = SubResource( 1 )

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://UI/save/SaveGame.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+game_version = ""
+data = {
+"anim_player_AnimationPlayer_Introduction": {
+"animation": ""
+},
+"party_Player": {
+"experience": null,
+"global position": Vector2( 289.564, 172.177 ),
+"health": null,
+"inventory": {
+}
+}
+}
