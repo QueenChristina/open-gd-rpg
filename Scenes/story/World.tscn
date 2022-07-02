@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://Scenes/story/Introduction.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/story/World.gd" type="Script" id=2]
-
-[node name="World" type="Node2D"]
-script = ExtResource( 2 )
-
-[node name="Introduction" parent="." instance=ExtResource( 1 )]

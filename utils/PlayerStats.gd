@@ -3,7 +3,7 @@ extends Node
 # Player stats eg. health, inventory, skills, etc
 # https://github.com/GDQuest/godot-make-pro-2d-games/tree/master/actors/player
 
-
+var max_health
 var health
 var experience
 var inventory = {} # item : amount, item must match item in db_items

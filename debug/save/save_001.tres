@@ -7,11 +7,12 @@ script = ExtResource( 1 )
 game_version = ""
 data = {
 "anim_player_AnimationPlayer_Introduction": {
-"animation": ""
+"animation": "cross_river",
+"animation_position": 2.5
 },
 "party_Player": {
 "experience": null,
-"global position": Vector2( 266.859, 480 ),
+"global position": Vector2( 266.859, 545 ),
 "health": null,
 "inventory": {
 }

@@ -127,5 +127,19 @@
 		{"text" : "No, I don't understand...", "next" : "tweet_no_joke"},
 	],
 	"action" : ["screen shake"],
-}
+},
+
+"bunny_general" : {
+	"name": "Moon Bunny", 
+	"icon": "bunny_default", 
+	"voice": "bunny",
+	"text": ["Hrmph! And who are you to be wandering into moon bunny territory?"], 
+},
+
+"bunny_general2" : {
+	"name": "Moon Bunny", 
+	"icon": "bunny_default", 
+	"voice": "bunny",
+	"text": ["Oh, and what business are you on to be here?"], 
+},
 }

@@ -81,8 +81,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Goodnight, Eli"
-config/description="Eli listens to one more bedtime story, and drifts onto into dreams..."
-run/main_scene="res://Scenes/story/World.tscn"
+config/description="In this totally classic RPG, hunt monsters and fulfill quests!!!!"
+run/main_scene="res://World/story/World.tscn"
 boot_splash/image="res://Assets/Actors/Eli_Red.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
@@ -96,6 +96,7 @@ UI="*res://UI/UI.tscn"
 Globals="*res://GameSrc/Globals.gd"
 GameState="*res://GameSrc/GameState.gd"
 PlayerStats="*res://utils/PlayerStats.gd"
+GameSaver="*res://UI/save/GameSaver.gd"
 
 [display]
 
@@ -170,6 +171,24 @@ confirm={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
  ]
 }
+attack={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[layer_layer_1names]
+
+2d_physics/World=false
+
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="PlayerHurtbox"
+2d_physics/layer_4="EnemyHurtbox"
+2d_physics/layer_5="Enemy"
 
 [rendering]
 

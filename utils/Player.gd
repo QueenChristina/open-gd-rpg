@@ -19,11 +19,15 @@ onready var animationTree = $AnimationTree
 onready var sprite = $Sprite
 onready var animationState = animationTree.get("parameters/playback")
 onready var stats = $Stats
-
-onready var SAVE_KEY: String = "party_" + name
+onready var hitbox = $HitboxPivot/Hitbox
+onready var hitboxPivot = $HitboxPivot
+onready var swordPivot = $SwordPivot
+onready var SAVE_KEY: String = "player"
 
 func _ready():
 	add_to_group("Player")
+	animationTree.active = true
+	hitbox.knockback_vector = Vector2.LEFT
 
 func _physics_process(delta):
 	match state:
@@ -41,11 +45,19 @@ func move_state(delta):
 	
 	# Run only if game not paused.
 	if input_vector != Vector2.ZERO and !GameState.is_paused():
+		hitbox.knockback_vector = input_vector
 		# Set idle here so it will 'remember' the last direction
 		# based on coordinate grid triangle in tree.
 		animationTree.set("parameters/Idle/blend_position", input_vector)
 		animationTree.set("parameters/Run/blend_position", input_vector)
+		animationTree.set("parameters/Attack/blend_position", input_vector)
 		sprite.flip_h = input_vector.x < 0
+		if input_vector.x < 0:
+			swordPivot.scale.x = -1
+			hitboxPivot.scale.x = -1
+		else:
+			swordPivot.scale.x = 1
+			hitboxPivot.scale.x = 1
 		animationState.travel("Run")
 		# Multiply velocity by delta incase of computer lag
 		velocity = MAX_SPEED*input_vector * delta
@@ -55,12 +67,17 @@ func move_state(delta):
 		velocity = Vector2.ZERO
 	move_and_collide(velocity)
 	
+	# detect if attack
+	if Input.is_action_just_pressed("attack"):
+		state = ATTACK
+	
 func attack_state(_delta):
-	# velocity = Vector2.ZERO #to stop sliding
-	# with separate function, end attack by change state
-	pass
+	velocity = Vector2.ZERO #to stop sliding
+	animationState.travel("Attack")
 	
-	
+# with separate function, end attack by change state
+func attack_state_finished():
+	state = MOVE
 
 func save(save_game: Resource):
 	save_game.data[SAVE_KEY] = {

@@ -28,7 +28,7 @@ func save(id: int):
 		print('There was an issue writing the save %s to %s' % [id, save_path])
 
 
-func load(id: int):
+func load(id: int, is_temp_file = false):
 	# Reads a saved game from the disk and delegates loading
 	# to the individual nodes to load
 	var save_file_path: String = SAVE_FOLDER.plus_file(SAVE_NAME_TEMPLATE % id)
@@ -39,4 +39,7 @@ func load(id: int):
 
 	var save_game: Resource = load(save_file_path)
 	for node in get_tree().get_nodes_in_group('save'):
-		node.load(save_game)
+		if is_temp_file and node.SAVE_KEY == "player":
+			pass
+		else:
+			node.load(save_game)
