@@ -10,12 +10,17 @@ Open source basic J-RPG in Godot.
 * Enemies/Monsters
 * Save system (incomplete)
 * Menu and settings (incomplete)
+* Quest System (incomplete)
 
 ## How to Use
 `utils`:
 Instance the following to...:
 * `TalkableItem.tscn`
 Make a NPC that players can talk to, recieve quests, and give items to.
+* `PickableItem.tscn`
+Pick up an item with dialog
+* `Loot.tscn`
+Loot dropped by monsters, enters player inventory upon being near enough
 * `Monster.tscn`
 Make a monster that players can hit, kill, and recieve loot from.
 
