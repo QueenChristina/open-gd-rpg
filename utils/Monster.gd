@@ -1,12 +1,15 @@
+tool
 # courtesy of HeartBeast https://www.youtube.com/watch?v=srQz4Ix8rZM
 extends KinematicBody2D
 
 export var ACCELERATION = 360
 export var MAX_SPEED = 50
 export var FRICTION = 200
-export var loots = [] # other than money
-export var experience = 5
-export var chance_of_loot = 0.9
+export var loots = [] # droppable items other than money
+export var experience = 5 # for the player to earn when killed
+export var chance_of_loot = 0.3 # Chance of getting loot/money at all
+export var level = 1 # level of the monster
+export var mon_name = "Slime" setget set_name # name of monster
 
 enum {
 	IDLE,
@@ -25,12 +28,21 @@ onready var softCollision = $SoftCollision
 onready var modTimer = $Timer
 onready var wanderController = $WanderController
 onready var loot = preload("res://utils/Loot.tscn") # could be money or loot
+onready var healthBar = $HealthBar
+onready var labelName = $HealthBar/Label
 
 var state = IDLE
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	labelName.text = mon_name
+	healthBar.max_value = stats.max_health
+	healthBar.value = stats.health
+	healthBar.visible = false
+	
+func set_name(value):
+	mon_name = value
+	labelName.text = mon_name
 	
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
@@ -89,6 +101,8 @@ func _on_Hurtbox_area_entered(area):
 	hurtSound.play()
 	sprite.modulate = Color(100, 100, 100, 1)
 	modTimer.start()
+	healthBar.value = stats.health
+	healthBar.visible = true
 	
 func _on_Timer_timeout():
 	sprite.modulate = Color(1, 1, 1, 1)
@@ -120,4 +134,4 @@ func _on_Eyesight_body_shape_entered(body_id, body, body_shape, area_shape):
 func _on_Eyesight_body_shape_exited(body_id, body, body_shape, area_shape):
 	is_player_in_sight = false
 	player = null
-
+	healthBar.visible = false

@@ -5,7 +5,7 @@
 [ext_resource path="res://utils/area/Teleport.tscn" type="PackedScene" id=3]
 [ext_resource path="res://utils/Camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://utils/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/Monsters/Slime.tscn" type="PackedScene" id=7]
+[ext_resource path="res://utils/Monster.tscn" type="PackedScene" id=6]
 [ext_resource path="res://utils/area/Place.gd" type="Script" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -87,17 +87,11 @@ position = Vector2( 338.881, 173.225 )
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="YSort/Player"]
 remote_path = NodePath("../../Camera")
 
-[node name="Slime" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 510.845, 110.157 )
+[node name="Monster" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 472.584, 99.2258 )
 
-[node name="Slime2" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 513.493, 293.445 )
-
-[node name="Slime3" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 218.963, 292.385 )
-
-[node name="Slime4" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 203.6, 109.628 )
+[node name="Slime" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 214.084, 98.7258 )
 
 [node name="EnterPos" type="Node2D" parent="."]
 
