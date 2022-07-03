@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/menu/ItemContainer.gd" type="Script" id=1]
+[ext_resource path="res://UI/Handwrittenrpg-Bold.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 10.0
@@ -43,6 +44,13 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 anti_aliasing = false
 
+[sub_resource type="DynamicFont" id=4]
+size = 18
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 2 )
+
 [node name="ItemContainer" type="Button"]
 margin_right = 50.0
 margin_bottom = 50.0
@@ -52,6 +60,23 @@ custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
 expand_icon = true
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -16.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 4 )
+text = "99 "
+align = 2
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

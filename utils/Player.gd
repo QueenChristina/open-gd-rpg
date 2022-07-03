@@ -23,6 +23,7 @@ onready var hitbox = $HitboxPivot/Hitbox
 onready var hitboxPivot = $HitboxPivot
 onready var hurtbox = $Hurtbox
 onready var swordPivot = $SwordPivot
+onready var hurtSound = $hurtSound
 onready var SAVE_KEY: String = "player"
 
 func _ready():
@@ -99,6 +100,7 @@ func load(save_game: Resource):
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
 	hurtbox.create_hit_effect()
+	hurtSound.play()
 
 func _on_Stats_no_health():
 #	self.queue_free()

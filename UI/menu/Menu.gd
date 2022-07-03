@@ -17,6 +17,7 @@ func on_inventory_changed():
 		item_container.item_name = ""
 		item_container.item_description = ""
 		item_container.add_hp = 0
+		item_container.amount = 0
 		item_name.text = ""
 		item_description.text = ""
 		
@@ -30,6 +31,7 @@ func on_inventory_changed():
 		item_container.item_name = item
 		item_container.item_description = item_data["description"]
 		item_container.add_hp = item_data["add_hp"]
+		item_container.amount = PlayerStats.inventory[item]
 		item_index += 1
 		
 func on_item_container_selected(item_container):
