@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://UI/dialog/dialog.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/menu/Menu.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://UI/heart.png" type="Texture" id=8]
 [ext_resource path="res://UI/ExpBarFill.png" type="Texture" id=9]
 [ext_resource path="res://UI/exp.png" type="Texture" id=10]
+[ext_resource path="res://UI/TransTheme.tres" type="Theme" id=11]
+[ext_resource path="res://Assets/Items/money.png" type="Texture" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.941176, 0.905882, 0.839216, 1 )
@@ -184,10 +186,14 @@ custom_styles/panel = SubResource( 6 )
 frame = 0
 
 [node name="Menu" parent="." instance=ExtResource( 2 )]
-margin_left = 0.132416
-margin_top = 0.132431
-margin_right = 0.132446
-margin_bottom = 0.132446
+margin_left = -0.0162351
+margin_top = -0.0162201
+margin_right = -0.0162354
+margin_bottom = -0.0162048
+
+[node name="money" type="Sprite" parent="."]
+position = Vector2( 47.0894, 15.6855 )
+texture = ExtResource( 12 )
 
 [node name="Heart" type="TextureRect" parent="."]
 margin_left = 499.89
@@ -228,6 +234,17 @@ margin_right = 636.065
 margin_bottom = 51.6449
 texture_under = ExtResource( 7 )
 texture_progress = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Money" type="Label" parent="."]
+margin_left = 63.0
+margin_top = 5.0
+margin_right = 93.0
+margin_bottom = 30.0
+theme = ExtResource( 11 )
+text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }

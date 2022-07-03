@@ -6,10 +6,12 @@ onready var dialog = $DialogSmall
 onready var dialog_black = $DialogBlack
 onready var health_bar = $Health
 onready var exp_bar = $ExpBar
+onready var money_label = $Money
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PlayerStats.connect("health_changed", self, "set_health_bar")
 	PlayerStats.connect("exp_changed", self, "set_exp_bar")
+	PlayerStats.connect("money_changed", self, "set_money")
 
 func start_dialog(index, dialog_style = ""):
 	# Choose different dialog box styles
@@ -36,3 +38,6 @@ func set_exp_bar():
 	exp_bar.value = PlayerStats.experience
 	exp_bar.max_value = PlayerStats.max_experience
 	print("set exp bar to " + str(exp_bar.value) + " of " + str(exp_bar.max_value))
+	
+func set_money():
+	money_label.text = str(PlayerStats.money)

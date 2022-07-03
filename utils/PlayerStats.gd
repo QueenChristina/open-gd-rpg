@@ -9,12 +9,17 @@ var experience = 0 setget set_exp # cycles to 0 with level upgrades
 var max_experience = 100 setget set_max_exp
 var level = 1
 var inventory = {} # item : amount, item must match item in db_items
+var money = 0 setget set_money
 
 signal no_health
 signal health_changed
 signal inventory_changed
 signal exp_changed
+signal money_changed
 
+func set_money(value):
+	money = value
+	emit_signal("money_changed")
 
 func set_max_health(value):
 	max_health = clamp(value, 0, value)

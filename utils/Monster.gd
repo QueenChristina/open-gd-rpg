@@ -4,8 +4,9 @@ extends KinematicBody2D
 export var ACCELERATION = 360
 export var MAX_SPEED = 50
 export var FRICTION = 200
-export var loots = []
+export var loots = [] # other than money
 export var experience = 5
+export var chance_of_loot = 0.9
 
 enum {
 	IDLE,
@@ -23,6 +24,7 @@ onready var hurtSound = $HurtSound
 onready var softCollision = $SoftCollision
 onready var modTimer = $Timer
 onready var wanderController = $WanderController
+onready var loot = preload("res://utils/Loot.tscn") # could be money or loot
 
 var state = IDLE
 
@@ -99,6 +101,16 @@ func _on_Stats_no_health():
 
 func spawn_loot():
 	PlayerStats.experience += experience
+	# chance of loot, money, or nothing
+	if randf() <= chance_of_loot:
+		var new_loot = loot.instance()
+		get_parent().call_deferred("add_child", new_loot)
+		new_loot.global_position = global_position
+		
+		# TODO: set to be money or loot
+		new_loot.item = "money"
+		new_loot.amount = 1 # TODO: random amount
+		new_loot.call_deferred("set_icon", load("res://Assets/Items/money.png"))
 
 func _on_Eyesight_body_shape_entered(body_id, body, body_shape, area_shape):
 	if body.is_in_group("Player"):
