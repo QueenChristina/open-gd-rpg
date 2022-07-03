@@ -1,44 +1,44 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/Monsters/Blob Spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://utils/enemy/Stats.gd" type="Script" id=2]
 [ext_resource path="res://utils/Monster.gd" type="Script" id=3]
 [ext_resource path="res://Audio/SFX/hit.wav" type="AudioStream" id=4]
+[ext_resource path="res://utils/area/SoftCollision.gd" type="Script" id=5]
+[ext_resource path="res://utils/enemy/WanderController.gd" type="Script" id=6]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 30, 30 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
 region = Rect2( 30, 0, 30, 30 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
 region = Rect2( 60, 0, 30, 30 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
 region = Rect2( 90, 0, 30, 30 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
 region = Rect2( 120, 0, 30, 30 )
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=17]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=7]
-radius = 5.57389
-height = 11.7071
+[sub_resource type="CircleShape2D" id=18]
 
-[sub_resource type="CircleShape2D" id=8]
-radius = 17.6478
+[sub_resource type="CircleShape2D" id=19]
+radius = 19.0675
 
 [sub_resource type="GDScript" id=11]
 script/source = "extends Area2D
@@ -56,27 +56,28 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="CircleShape2D" id=10]
-radius = 6.91549
+[sub_resource type="CircleShape2D" id=20]
+radius = 7.10251
 
-[sub_resource type="CircleShape2D" id=9]
-radius = 96.772
+[sub_resource type="CircleShape2D" id=21]
+radius = 106.201
+
+[sub_resource type="CircleShape2D" id=22]
+radius = 11.674
 
 [node name="Slime" type="KinematicBody2D"]
-position = Vector2( 279.315, 153.173 )
 collision_layer = 16
 script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -12 )
-frames = SubResource( 6 )
-frame = 2
+frames = SubResource( 17 )
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -5 )
 rotation = 1.5708
-shape = SubResource( 7 )
+shape = SubResource( 18 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 8
@@ -84,7 +85,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( 0, -10 )
-shape = SubResource( 8 )
+shape = SubResource( 19 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 32
@@ -93,14 +94,22 @@ script = SubResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( 0.618717, -9.36917 )
-shape = SubResource( 10 )
+shape = SubResource( 20 )
 
 [node name="Eyesight" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eyesight"]
-shape = SubResource( 9 )
+shape = SubResource( 21 )
+
+[node name="SoftCollision" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 64
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
+shape = SubResource( 22 )
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource( 2 )
@@ -108,8 +117,20 @@ script = ExtResource( 2 )
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="WanderController" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="WanderController"]
+one_shot = true
+autostart = true
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="body_shape_entered" from="Hurtbox" to="." method="_on_Hitbox_body_shape_entered"]
 [connection signal="body_shape_entered" from="Eyesight" to="." method="_on_Eyesight_body_shape_entered"]
 [connection signal="body_shape_exited" from="Eyesight" to="." method="_on_Eyesight_body_shape_exited"]
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="WanderController/Timer" to="WanderController" method="_on_Timer_timeout"]

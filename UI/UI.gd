@@ -30,9 +30,9 @@ func _on_dialog_ended(text_id):
 func set_health_bar():
 	health_bar.value = PlayerStats.get_health()
 	health_bar.max_value = PlayerStats.max_health
-	print("set health bar to" + str(health_bar.value) + str(health_bar.max_value))
+	print("set health bar to" + str(health_bar.value) + " of " + str(health_bar.max_value))
 	
 func set_exp_bar():
 	exp_bar.value = PlayerStats.experience
 	exp_bar.max_value = PlayerStats.max_experience
-	print("set exp bar to " + str(exp_bar.value) + str(exp_bar.max_value))
+	print("set exp bar to " + str(exp_bar.value) + " of " + str(exp_bar.max_value))

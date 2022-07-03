@@ -190,6 +190,7 @@ attack={
 2d_physics/layer_4="EnemyHurtbox"
 2d_physics/layer_5="Enemy"
 2d_physics/layer_6="EnemyHitbox"
+2d_physics/layer_7="SoftCollision"
 
 [rendering]
 

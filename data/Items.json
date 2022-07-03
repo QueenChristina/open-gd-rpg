@@ -10,7 +10,7 @@
 	"icon" : "res://Assets/Items/Mochi.png",
 	"type" : "food",
 	"description" : "A small piece of the moon bunny's main manufactured product.",
-	"add_hp": 1,
+	"add_hp": 10,
 },
 
 }
