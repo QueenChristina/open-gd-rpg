@@ -5,8 +5,9 @@ Open source basic J-RPG in Godot.
 * [Player animations and movement as done by HeartBeast](https://www.youtube.com/watch?v=mAbG8Oi-SvQ&list=PL9FzW-m48fn2SlrW0KoLT4n5egNdX-W9a&index=1)
 * Scene switching
 * [Advanced dialog system](https://github.com/QueenChristina/gd_dialog)
-* Inventory system
-* Enemies (incomplete)
+* Inventory and Items system
+* Leveling System (incomplete)
+* Enemies/Monsters
 * Save system (incomplete)
 * Menu and settings (incomplete)
 
