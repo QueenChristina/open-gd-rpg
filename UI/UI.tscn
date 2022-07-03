@@ -1,10 +1,15 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://UI/dialog/dialog.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/menu/Menu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/YellowBox.png" type="Texture" id=3]
 [ext_resource path="res://UI/UI.gd" type="Script" id=4]
 [ext_resource path="res://UI/YellowTheme.tres" type="Theme" id=5]
+[ext_resource path="res://UI/HealthBarFill.png" type="Texture" id=6]
+[ext_resource path="res://UI/HealthBarUnder.png" type="Texture" id=7]
+[ext_resource path="res://UI/heart.png" type="Texture" id=8]
+[ext_resource path="res://UI/ExpBarFill.png" type="Texture" id=9]
+[ext_resource path="res://UI/exp.png" type="Texture" id=10]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.941176, 0.905882, 0.839216, 1 )
@@ -179,6 +184,54 @@ custom_styles/panel = SubResource( 6 )
 frame = 0
 
 [node name="Menu" parent="." instance=ExtResource( 2 )]
+margin_left = 0.132416
+margin_top = 0.132431
+margin_right = 0.132446
+margin_bottom = 0.132446
+
+[node name="Heart" type="TextureRect" parent="."]
+margin_left = 499.89
+margin_top = 4.43669
+margin_right = 520.89
+margin_bottom = 25.4367
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EXP" type="TextureRect" parent="."]
+margin_left = 500.42
+margin_top = 32.1152
+margin_right = 521.42
+margin_bottom = 53.1152
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" type="TextureProgress" parent="."]
+margin_left = 524.0
+margin_top = 4.0
+margin_right = 636.0
+margin_bottom = 24.0
+value = 100.0
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExpBar" type="TextureProgress" parent="."]
+margin_left = 524.065
+margin_top = 31.6449
+margin_right = 636.065
+margin_bottom = 51.6449
+value = 100.0
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="dialog_ended" from="DialogSmall" to="." method="_on_dialog_ended"]
 [connection signal="dialog_ended" from="DialogBlack" to="." method="_on_dialog_ended"]

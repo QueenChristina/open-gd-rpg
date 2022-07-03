@@ -16,6 +16,7 @@ func switch_to_scene(old_scene_name, new_scene_path, position_id):
 	level.call_deferred("free")
 
 	# Add the next level
+	print(new_scene_path)
 	var next_level_resource = load(new_scene_path)
 	var next_level = next_level_resource.instance()
 	call_deferred("add_child", next_level)

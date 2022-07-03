@@ -1,0 +1,16 @@
+{
+"itemNAME" : {
+	"icon" : "",
+	"type" : "",
+	"description" : "",
+	"add_hp": 0,
+	},
+
+"mochi" : {
+	"icon" : "res://Assets/Items/Mochi.png",
+	"type" : "food",
+	"description" : "A small piece of the moon bunny's main manufactured product.",
+	"add_hp": 1,
+},
+
+}

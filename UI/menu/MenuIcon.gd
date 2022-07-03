@@ -8,5 +8,4 @@ func _ready():
 	menu = get_node(menu_path)
 
 func _on_MenuIcon_pressed():
-	print('asdf')
 	menu.visible = !menu.visible

@@ -4,10 +4,12 @@ signal dialog_ended(text_id)
 
 onready var dialog = $DialogSmall
 onready var dialog_black = $DialogBlack
-
+onready var health_bar = $Health
+onready var exp_bar = $ExpBar
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	PlayerStats.connect("health_changed", self, "set_health_bar")
+	PlayerStats.connect("exp_changed", self, "set_exp_bar")
 
 func start_dialog(index, dialog_style = ""):
 	# Choose different dialog box styles
@@ -24,3 +26,13 @@ func start_dialog(index, dialog_style = ""):
 
 func _on_dialog_ended(text_id):
 	emit_signal("dialog_ended", text_id)
+
+func set_health_bar():
+	health_bar.value = PlayerStats.get_health()
+	health_bar.max_value = PlayerStats.max_health
+	print("set health bar to" + str(health_bar.value) + str(health_bar.max_value))
+	
+func set_exp_bar():
+	exp_bar.value = PlayerStats.experience
+	exp_bar.max_value = PlayerStats.max_experience
+	print("set exp bar to " + str(exp_bar.value) + str(exp_bar.max_value))

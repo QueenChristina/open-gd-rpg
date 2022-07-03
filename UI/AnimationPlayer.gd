@@ -17,11 +17,12 @@ func _on_animation_finished(_anim_name):
 func save(save_game: Resource):
 	save_game.data[SAVE_KEY] = {
 		'animation' : self.assigned_animation, # TODO: something to play/advance ALL animations played before.....
-		'animation_position' : self.current_animation_position
+		'animation_position' : self.get_current_animation_position() # TODO: catch for case when no animation played at all
 	}
 
 func load(save_game: Resource):
-	var data : Dictionary = save_game.data[SAVE_KEY]
-	self.play(data['animation'])
-	self.advance(data['animation_position'])
+	if save_game.data.has(SAVE_KEY):
+		var data : Dictionary = save_game.data[SAVE_KEY]
+		self.play(data['animation'])
+		self.advance(data['animation_position'])
 

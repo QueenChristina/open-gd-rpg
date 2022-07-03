@@ -18,9 +18,10 @@ onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
 onready var sprite = $Sprite
 onready var animationState = animationTree.get("parameters/playback")
-onready var stats = $Stats
+onready var stats = PlayerStats # Instead of $PlayStats, as autoloaded gets put at root of tree - modify the one at the root
 onready var hitbox = $HitboxPivot/Hitbox
 onready var hitboxPivot = $HitboxPivot
+onready var hurtbox = $Hurtbox
 onready var swordPivot = $SwordPivot
 onready var SAVE_KEY: String = "player"
 
@@ -43,8 +44,11 @@ func move_state(delta):
 	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	input_vector = input_vector.normalized()
 	
+	# detect if attack 
+	if Input.is_action_just_pressed("attack") and !GameState.is_paused():
+		state = ATTACK
 	# Run only if game not paused.
-	if input_vector != Vector2.ZERO and !GameState.is_paused():
+	elif input_vector != Vector2.ZERO and !GameState.is_paused():
 		hitbox.knockback_vector = input_vector
 		# Set idle here so it will 'remember' the last direction
 		# based on coordinate grid triangle in tree.
@@ -67,10 +71,6 @@ func move_state(delta):
 		velocity = Vector2.ZERO
 	move_and_collide(velocity)
 	
-	# detect if attack
-	if Input.is_action_just_pressed("attack"):
-		state = ATTACK
-	
 func attack_state(_delta):
 	velocity = Vector2.ZERO #to stop sliding
 	animationState.travel("Attack")
@@ -87,7 +87,6 @@ func save(save_game: Resource):
 		'global position' : self.global_position
 	}
 
-
 func load(save_game: Resource):
 	var data: Dictionary = save_game.data[SAVE_KEY]
 	stats.experience = data['experience']
@@ -95,3 +94,12 @@ func load(save_game: Resource):
 	stats.inventory = data['inventory']
 	self.global_position = data['global position']
 
+
+# When an enemy hitbox enters the player's hurtbox
+func _on_Hurtbox_area_entered(area):
+	stats.health -= area.damage
+	hurtbox.create_hit_effect()
+
+func _on_Stats_no_health():
+#	self.queue_free()
+	print("GAME OVER - player dead")

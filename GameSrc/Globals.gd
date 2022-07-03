@@ -8,12 +8,14 @@ signal play_animation(animation)
 signal play_sound(sound)
 signal screen_shake
 
-export var dialog_file = "res://Data/Dialogue.json"
-export var voices_file = "res://Data/Voices.json"
+export var dialog_file = "res://data/Dialogue.json"
+export var voices_file = "res://data/Voices.json"
+export var items_file = "res://data/Items.json"
 
 # database of all dialogues and voices, as JSON
 var db_dialog 
 var db_voices
+var db_items
 var END_DIALOG_ID = "end" # The dialog next_id that will end the dialog, reserved keyword.
 var data = {} # TODO: keep data here, but move actionHandler # In game global data, used for conditionals in dialog
 
@@ -24,6 +26,7 @@ func _ready():
 	# TODO: Store in global variables, so load only once per file (not each instance of Dialog)
 	db_dialog = LoadFile(dialog_file) #Globals.db_dialog
 	db_voices = LoadFile(voices_file)
+	db_items = LoadFile(items_file)
 	
 # TODO: validate database. Debug script that validates db_dialog and db_voices when loaded. Then, remove 
 # in-script warnings.

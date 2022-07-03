@@ -1,28 +1,28 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://utils/Monster.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Monsters/Blob Spritesheet.png" type="Texture" id=2]
-[ext_resource path="res://utils/enemy/Stats.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Monsters/Blob Spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://utils/enemy/Stats.gd" type="Script" id=2]
+[ext_resource path="res://utils/Monster.gd" type="Script" id=3]
 [ext_resource path="res://Audio/SFX/hit.wav" type="AudioStream" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 30, 30 )
 
 [sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 30, 0, 30, 30 )
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 60, 0, 30, 30 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 90, 0, 30, 30 )
 
 [sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 120, 0, 30, 30 )
 
 [sub_resource type="SpriteFrames" id=6]
@@ -62,14 +62,15 @@ radius = 6.91549
 [sub_resource type="CircleShape2D" id=9]
 radius = 96.772
 
-[node name="Monster" type="KinematicBody2D"]
+[node name="Slime" type="KinematicBody2D"]
+position = Vector2( 279.315, 153.173 )
 collision_layer = 16
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -12 )
 frames = SubResource( 6 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -102,7 +103,7 @@ collision_mask = 2
 shape = SubResource( 9 )
 
 [node name="Stats" type="Node" parent="."]
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )

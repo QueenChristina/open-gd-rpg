@@ -432,7 +432,7 @@ position = Vector2( 309.683, 650.067 )
 
 [node name="Teleport" parent="." instance=ExtResource( 12 )]
 position = Vector2( 305.482, 696.129 )
-new_scene_path = "res://World/MoonBunnyOpening.tscn"
+new_scene_path = "res://World/story/Opening.tscn"
 
 [node name="CollisionShape2D" parent="Teleport" index="0"]
 position = Vector2( 3.02762, 15.4135 )

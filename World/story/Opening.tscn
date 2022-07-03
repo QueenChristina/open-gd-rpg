@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/32Tileset.png" type="Texture" id=1]
 [ext_resource path="res://utils/TalkableItem.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://utils/Camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://utils/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://utils/Monster.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Monsters/Slime.tscn" type="PackedScene" id=7]
 [ext_resource path="res://utils/area/Place.gd" type="Script" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -90,16 +91,23 @@ remote_path = NodePath("../../Camera")
 [node name="Monster" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 279.315, 153.173 )
 
+[node name="Slime" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 492.062, 119.537 )
+
 [node name="EnterPos" type="Node2D" parent="."]
 
 [node name="enter_0" type="Position2D" parent="EnterPos"]
-position = Vector2( 327.141, -13.7648 )
+position = Vector2( 330.505, 21.5529 )
 
 [node name="Teleport" parent="." instance=ExtResource( 3 )]
-position = Vector2( 330.475, -31.5693 )
+position = Vector2( 330.475, -50.5693 )
 new_scene_path = "res://World/story/Introduction.tscn"
-to_pos_id = 1
+
+[node name="Teleport2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 330.475, 368.431 )
+new_scene_path = "res://World/MoonBunnyOpening.tscn"
 
 [node name="TalkableItem" parent="." instance=ExtResource( 2 )]
 
 [connection signal="switch_to" from="Teleport" to="." method="_on_Teleport_switch_to"]
+[connection signal="switch_to" from="Teleport2" to="." method="_on_Teleport_switch_to"]

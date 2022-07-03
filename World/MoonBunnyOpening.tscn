@@ -84,7 +84,7 @@ position = Vector2( 327.669, 57.5644 )
 
 [node name="Teleport" parent="." instance=ExtResource( 3 )]
 position = Vector2( 329.255, -4.13455 )
-new_scene_path = "res://Scenes/story/Introduction.tscn"
+new_scene_path = "res://World/story/Introduction.tscn"
 to_pos_id = 1
 
 [connection signal="switch_to" from="Teleport" to="." method="_on_Teleport_switch_to"]

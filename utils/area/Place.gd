@@ -16,7 +16,7 @@ func _ready():
 func teleport_to_this(position_id):
 	var teleportEnterPos = get_node_or_null("EnterPos")
 	if teleportEnterPos:
-#		GameSaver.load(999, true) # Save game to temp file when switching scenes
+		GameSaver.load(999, true) # Save game to temp file when switching scenes
 		
 		var position2D = teleportEnterPos.get_children()[position_id]
 		player.global_position = position2D.position
