@@ -2,7 +2,7 @@
 Open source basic J-RPG in Godot.
 
 ## Features
-* [Player animations and movement as done by HeartBeast](https://www.youtube.com/watch?v=mAbG8Oi-SvQ&list=PL9FzW-m48fn2SlrW0KoLT4n5egNdX-W9a&index=1)
+* [Player animations, initial RPG, and movement as done by HeartBeast](https://www.youtube.com/watch?v=mAbG8Oi-SvQ&list=PL9FzW-m48fn2SlrW0KoLT4n5egNdX-W9a&index=1)
 * Scene switching
 * [Advanced dialog system](https://github.com/QueenChristina/gd_dialog)
 * Inventory and Items system
@@ -44,6 +44,14 @@ World
   |_Teleport (areas of exit from the place to a new place)
   |_...
 </pre>
+
+`UI.tscn` with save menu and HP, EXP bars are autoloaded.
+
+Game data and globals saved in `GameSrc/GameHandlers.tscn`.
+
+Player stats (health, inventory) saved in autoloaded `PlayerStats.gd`.
+
+To save something's data, add them to the `save` group, and add `save` and `load` functions to save their data to a `save_game.data` dictionary with their own unique key. Game saving handled by GDQuest's `GameSaver` system.
 
 ## Based on:
 * [Heartbeast's action RPG tutorial](https://www.youtube.com/watch?v=mAbG8Oi-SvQ&list=PL9FzW-m48fn2SlrW0KoLT4n5egNdX-W9a&index=1)
