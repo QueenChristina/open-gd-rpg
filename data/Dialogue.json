@@ -47,6 +47,18 @@
 	"next": "end"
 	},
 
+"intro": {
+	"text": ["Every hero needs a sword.", "So,| go forth hero, |with this instrument ye shall find...", "...a brave new world."],
+},
+
+"wolf_quest": {
+	"text": ["Help! Help! Aaaaah!", "Wha? Oh! You there! You're carrying a sword. So you must be one of those...uh...h-heros!?!?!", "Thank goodness!", " These slimes have been terrorizing the village nearby. Please eliminate the monsters that blight this world.", "(Click to attack.)"],
+},
+
+"RPG in RPG" :{
+	"text": ["Please, hero! Eliminate the monster that has been terrorizing this village and killing off all the innocent sheeples."]
+},
+
 "cross_styx": { 
 	"text": ["Hello, sir! Would you like to cross the river?"], 
 	"choices": [

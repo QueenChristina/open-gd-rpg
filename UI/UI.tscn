@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://UI/dialog/dialog.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/menu/Menu.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://UI/exp.png" type="Texture" id=10]
 [ext_resource path="res://UI/TransTheme.tres" type="Theme" id=11]
 [ext_resource path="res://Assets/Items/money.png" type="Texture" id=12]
+[ext_resource path="res://UI/quest/QuestPanel.gd" type="Script" id=13]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.941176, 0.905882, 0.839216, 1 )
@@ -43,6 +44,21 @@ content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_top = 10.0
 bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="UI" type="CanvasLayer"]
 layer = 2
@@ -140,9 +156,6 @@ margin_bottom = 120.0
 [node name="PanelContainer" parent="DialogSmall/TextBox/Margin/HBox" index="0"]
 custom_styles/panel = SubResource( 3 )
 
-[node name="Icon" parent="DialogSmall/TextBox/Margin/HBox/PanelContainer" index="0"]
-frame = 0
-
 [node name="VBox" parent="DialogSmall/TextBox/Margin/HBox" index="1"]
 margin_right = 510.0
 
@@ -182,20 +195,24 @@ custom_styles/panel = SubResource( 5 )
 [node name="PanelContainer" parent="DialogBlack/TextBox/Margin/HBox" index="0"]
 custom_styles/panel = SubResource( 6 )
 
-[node name="Icon" parent="DialogBlack/TextBox/Margin/HBox/PanelContainer" index="0"]
-frame = 0
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Menu" parent="." instance=ExtResource( 2 )]
+[node name="Menu" parent="Control" instance=ExtResource( 2 )]
 margin_left = -0.0162351
 margin_top = -0.0162201
 margin_right = -0.0162354
 margin_bottom = -0.0162048
 
-[node name="money" type="Sprite" parent="."]
+[node name="money" type="Sprite" parent="Control"]
 position = Vector2( 47.0894, 15.6855 )
 texture = ExtResource( 12 )
 
-[node name="Heart" type="TextureRect" parent="."]
+[node name="Heart" type="TextureRect" parent="Control"]
 margin_left = 499.89
 margin_top = 4.43669
 margin_right = 520.89
@@ -205,7 +222,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EXP" type="TextureRect" parent="."]
+[node name="EXP" type="TextureRect" parent="Control"]
 margin_left = 500.42
 margin_top = 32.1152
 margin_right = 521.42
@@ -215,7 +232,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Health" type="TextureProgress" parent="."]
+[node name="Health" type="TextureProgress" parent="Control"]
 margin_left = 524.0
 margin_top = 4.0
 margin_right = 636.0
@@ -227,7 +244,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ExpBar" type="TextureProgress" parent="."]
+[node name="ExpBar" type="TextureProgress" parent="Control"]
 margin_left = 524.065
 margin_top = 31.6449
 margin_right = 636.065
@@ -238,7 +255,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Money" type="Label" parent="."]
+[node name="Money" type="Label" parent="Control"]
 margin_left = 63.0
 margin_top = 5.0
 margin_right = 93.0
@@ -249,8 +266,54 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="QuestPanel" type="PanelContainer" parent="."]
+visible = false
+margin_left = 210.674
+margin_top = 60.6629
+margin_right = 408.674
+margin_bottom = 298.663
+theme = ExtResource( 11 )
+custom_styles/panel = SubResource( 7 )
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuestPanel"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 190.0
+margin_bottom = 230.0
+
+[node name="Label" type="Label" parent="QuestPanel/VBoxContainer"]
+margin_right = 182.0
+margin_bottom = 25.0
+text = "Quest Title"
+
+[node name="HSeparator" type="HSeparator" parent="QuestPanel/VBoxContainer"]
+margin_top = 29.0
+margin_right = 182.0
+margin_bottom = 37.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="QuestPanel/VBoxContainer"]
+margin_top = 37.0
+margin_right = 182.0
+margin_bottom = 186.0
+size_flags_vertical = 3
+text = "Quest Description: Kill off all the slimes on this page."
+
+[node name="Button" type="Button" parent="QuestPanel/VBoxContainer"]
+margin_top = 190.0
+margin_right = 182.0
+margin_bottom = 222.0
+text = "OK"
+
 [connection signal="dialog_ended" from="DialogSmall" to="." method="_on_dialog_ended"]
 [connection signal="dialog_ended" from="DialogBlack" to="." method="_on_dialog_ended"]
+[connection signal="pressed" from="QuestPanel/VBoxContainer/Button" to="QuestPanel" method="_on_Button_pressed"]
 
 [editable path="DialogSmall"]
 [editable path="DialogBlack"]

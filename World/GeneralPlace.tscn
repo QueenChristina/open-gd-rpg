@@ -89,10 +89,10 @@ remote_path = NodePath("../../Camera")
 [node name="EnterPos" type="Node2D" parent="."]
 
 [node name="enter_0" type="Position2D" parent="EnterPos"]
-position = Vector2( 327.141, -13.7648 )
+position = Vector2( 328.033, 50.4523 )
 
 [node name="Teleport" parent="." instance=ExtResource( 5 )]
-position = Vector2( 330.475, -31.5693 )
+position = Vector2( 334.637, -35.4342 )
 
 [node name="TalkableItem" parent="." instance=ExtResource( 3 )]
 

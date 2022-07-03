@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/32Tileset.png" type="Texture" id=1]
-[ext_resource path="res://utils/TalkableItem.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Actors/wolf.png" type="Texture" id=2]
 [ext_resource path="res://utils/area/Teleport.tscn" type="PackedScene" id=3]
 [ext_resource path="res://utils/Camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://utils/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://utils/Monster.tscn" type="PackedScene" id=6]
+[ext_resource path="res://utils/TalkableItem.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Monsters/Slime.tscn" type="PackedScene" id=7]
 [ext_resource path="res://utils/area/Place.gd" type="Script" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -67,6 +68,28 @@ resource_local_to_scene = true
 } ]
 1/z_index = 0
 
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 91, 58 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 91, 0, 91, 58 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 30.3461, 10 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 34.7217, 11.2982 )
+
 [node name="Opening" type="Node"]
 script = ExtResource( 10 )
 
@@ -87,16 +110,53 @@ position = Vector2( 338.881, 173.225 )
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="YSort/Player"]
 remote_path = NodePath("../../Camera")
 
-[node name="Monster" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 472.584, 99.2258 )
+[node name="Slime" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 173.05, 149.3 )
 
-[node name="Slime" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 214.084, 98.7258 )
+[node name="Slime2" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 500.712, 135.965 )
+
+[node name="Slime3" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 210.185, 291.799 )
+
+[node name="Slime4" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 523.246, 268.967 )
+
+[node name="Wolf" type="StaticBody2D" parent="YSort"]
+position = Vector2( 342.422, 112.569 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+talk_id = "wolf_quest"
+quest_title = "Kill the Slimes"
+quest_description = "Kill the Slimes that have been terrorizing the village."
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Wolf"]
+position = Vector2( -0.23597, -23.315 )
+frames = SubResource( 5 )
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Wolf"]
+position = Vector2( 0, -16 )
+shape = SubResource( 6 )
+
+[node name="Interact" type="Area2D" parent="YSort/Wolf"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Wolf/Interact"]
+position = Vector2( 0.576965, 4.15402 )
+shape = SubResource( 7 )
 
 [node name="EnterPos" type="Node2D" parent="."]
 
 [node name="enter_0" type="Position2D" parent="EnterPos"]
 position = Vector2( 330.505, 21.5529 )
+
+[node name="enter_1" type="Position2D" parent="EnterPos"]
+position = Vector2( 338.829, 171.988 )
+
+[node name="enter_2" type="Position2D" parent="EnterPos"]
+position = Vector2( 332.155, 308.809 )
 
 [node name="Teleport" parent="." instance=ExtResource( 3 )]
 position = Vector2( 330.475, -50.5693 )
@@ -106,7 +166,7 @@ new_scene_path = "res://World/story/Introduction.tscn"
 position = Vector2( 330.475, 368.431 )
 new_scene_path = "res://World/MoonBunnyOpening.tscn"
 
-[node name="TalkableItem" parent="." instance=ExtResource( 2 )]
-
+[connection signal="body_shape_entered" from="YSort/Wolf/Interact" to="YSort/Wolf" method="_on_Interact_body_shape_entered"]
+[connection signal="body_shape_exited" from="YSort/Wolf/Interact" to="YSort/Wolf" method="_on_Interact_body_shape_exited"]
 [connection signal="switch_to" from="Teleport" to="." method="_on_Teleport_switch_to"]
 [connection signal="switch_to" from="Teleport2" to="." method="_on_Teleport_switch_to"]

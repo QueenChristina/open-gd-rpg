@@ -12,7 +12,7 @@
 radius = 10.1118
 height = 0.0
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id=2]
 resource_name = "AttackDown"
 length = 0.4
 step = 0.2
@@ -103,7 +103,7 @@ tracks/6/keys = {
 "values": [ Vector2( 15.5566, 0.630672 ) ]
 }
 
-[sub_resource type="Animation" id=35]
+[sub_resource type="Animation" id=3]
 resource_name = "AttackRight"
 length = 0.4
 step = 0.2
@@ -194,7 +194,7 @@ tracks/6/keys = {
 "values": [ Vector2( 15.5566, 0.630672 ) ]
 }
 
-[sub_resource type="Animation" id=36]
+[sub_resource type="Animation" id=4]
 resource_name = "AttackUp"
 length = 0.4
 step = 0.2
@@ -285,7 +285,7 @@ tracks/6/keys = {
 "values": [ Vector2( 30.3774, 0.840897 ) ]
 }
 
-[sub_resource type="Animation" id=37]
+[sub_resource type="Animation" id=5]
 length = 0.8
 loop = true
 step = 0.2
@@ -326,7 +326,7 @@ tracks/2/keys = {
 "values": [ 145.0, 145.0 ]
 }
 
-[sub_resource type="Animation" id=38]
+[sub_resource type="Animation" id=6]
 length = 0.8
 loop = true
 step = 0.2
@@ -367,7 +367,7 @@ tracks/2/keys = {
 "values": [ 237.7, 243.7 ]
 }
 
-[sub_resource type="Animation" id=39]
+[sub_resource type="Animation" id=7]
 length = 0.8
 loop = true
 step = 0.2
@@ -408,7 +408,7 @@ tracks/2/keys = {
 "values": [ 213.0 ]
 }
 
-[sub_resource type="Animation" id=40]
+[sub_resource type="Animation" id=8]
 length = 0.8
 loop = true
 step = 0.2
@@ -449,7 +449,7 @@ tracks/2/keys = {
 "values": [ 145.0, 145.0 ]
 }
 
-[sub_resource type="Animation" id=41]
+[sub_resource type="Animation" id=9]
 length = 0.8
 loop = true
 step = 0.2
@@ -490,7 +490,7 @@ tracks/2/keys = {
 "values": [ 280.0, 280.0 ]
 }
 
-[sub_resource type="Animation" id=42]
+[sub_resource type="Animation" id=10]
 length = 0.8
 loop = true
 step = 0.2
@@ -636,7 +636,6 @@ radius = 8.79069
 height = 9.08995
 
 [node name="Player" type="KinematicBody2D"]
-z_index = 1
 collision_layer = 2
 script = ExtResource( 2 )
 
@@ -651,15 +650,15 @@ position = Vector2( 0, -10 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/AttackDown = SubResource( 34 )
-anims/AttackRight = SubResource( 35 )
-anims/AttackUp = SubResource( 36 )
-anims/IdleDown = SubResource( 37 )
-anims/IdleRight = SubResource( 38 )
-anims/IdleUp = SubResource( 39 )
-anims/RunDown = SubResource( 40 )
-anims/RunRight = SubResource( 41 )
-anims/RunUp = SubResource( 42 )
+anims/AttackDown = SubResource( 2 )
+anims/AttackRight = SubResource( 3 )
+anims/AttackUp = SubResource( 4 )
+anims/IdleDown = SubResource( 5 )
+anims/IdleRight = SubResource( 6 )
+anims/IdleUp = SubResource( 7 )
+anims/RunDown = SubResource( 8 )
+anims/RunRight = SubResource( 9 )
+anims/RunUp = SubResource( 10 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 30 )

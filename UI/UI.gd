@@ -2,11 +2,13 @@ extends CanvasLayer
 
 signal dialog_ended(text_id)
 
+onready var control = $Control
 onready var dialog = $DialogSmall
 onready var dialog_black = $DialogBlack
-onready var health_bar = $Health
-onready var exp_bar = $ExpBar
-onready var money_label = $Money
+onready var health_bar = $Control/Health
+onready var exp_bar = $Control/ExpBar
+onready var money_label = $Control/Money
+onready var quest_panel = $QuestPanel
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PlayerStats.connect("health_changed", self, "set_health_bar")
@@ -41,3 +43,15 @@ func set_exp_bar():
 	
 func set_money():
 	money_label.text = str(PlayerStats.money)
+	
+func hide():
+	control.hide()
+	
+func show():
+	control.show()
+
+func show_quest(title, description):
+	quest_panel.show()
+	GameState.cutscene = true
+	quest_panel.title = title
+	quest_panel.description = description

@@ -1,4 +1,3 @@
-tool
 # courtesy of HeartBeast https://www.youtube.com/watch?v=srQz4Ix8rZM
 extends KinematicBody2D
 
@@ -72,11 +71,14 @@ func _physics_process(delta):
 				accelerate_towards(player.global_position, delta)
 			else:
 				state = IDLE
-			
-	if softCollision.is_colliding():
-		# push away from other monsters
-		velocity += softCollision.get_push_vector() * delta * 430
-	velocity = move_and_slide(velocity)
+		
+	if !GameState.is_paused():
+		if softCollision.is_colliding():
+			# push away from other monsters
+			velocity += softCollision.get_push_vector() * delta * 430
+		velocity = move_and_slide(velocity)
+	else:
+		state = IDLE
 
 func accelerate_towards(point, delta):
 	var direction = global_position.direction_to(point)
@@ -126,12 +128,12 @@ func spawn_loot():
 		new_loot.amount = 1 # TODO: random amount
 		new_loot.call_deferred("set_icon", load("res://Assets/Items/money.png"))
 
-func _on_Eyesight_body_shape_entered(body_id, body, body_shape, area_shape):
+func _on_Eyesight_body_shape_entered(_body_id, body, _body_shape, _area_shape):
 	if body.is_in_group("Player"):
 		is_player_in_sight = true
 		player = body
 
-func _on_Eyesight_body_shape_exited(body_id, body, body_shape, area_shape):
+func _on_Eyesight_body_shape_exited(_body_id, _body, _body_shape, _area_shape):
 	is_player_in_sight = false
 	player = null
 	healthBar.visible = false

@@ -58,7 +58,7 @@ func _change_state(new_state):
 			timer.start()
 	state = new_state
 
-func _process(delta):
+func _process(_delta):
 	var damping = ease(timer.time_left / timer.wait_time, DAMP_EASING)
 	offset = Vector2(
 		rand_range(amplitude, -amplitude) * damping,

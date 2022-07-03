@@ -6,6 +6,8 @@ extends StaticBody2D
 class_name TalkableItem
 
 export var talk_id = "0"
+export(String) var quest_title = ""
+export(String, MULTILINE) var quest_description = ""
 var interactable = false
 var is_in_interact_area = false
 
@@ -14,7 +16,7 @@ func _ready():
 	pass
 
 func _input(_event):
-	if interactable && Input.is_action_just_released("confirm"):
+	if interactable && Input.is_action_just_released("confirm") && talk_id != "0":
 		UI.connect("dialog_ended", self, "_on_dialog_ended")
 		UI.start_dialog(talk_id)
 		# to prevent you ending dialogue and immediately reentering...
@@ -36,6 +38,9 @@ func _on_dialog_ended(_text_id):
 	# A slightly hacky way of allowing item to be interactable again w/o re-entering area
 	# after dialog ends, but without accidentally triggering it on last click, 
 	# setting to be interactable again only if player is still in area.
+	if quest_title != "":
+		UI.show_quest(quest_title, quest_description)
+		yield(GameState, "unpause")
 	yield(get_tree().create_timer(0.5), "timeout")
 	
 	if is_in_interact_area:
