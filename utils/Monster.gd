@@ -4,9 +4,10 @@ extends KinematicBody2D
 export var ACCELERATION = 360
 export var MAX_SPEED = 50
 export var FRICTION = 200
-export var loots = [] # droppable items other than money
+export var loots = ["hp_potion"] # droppable items other than money
 export var experience = 5 # for the player to earn when killed
-export var chance_of_loot = 0.3 # Chance of getting loot/money at all
+export var chance_of_loot = 0.4 # Chance of getting loot/money at all
+export var chance_of_money = 0.5 # Chance of getting money instead of other items assuming you get loot
 export var level = 1 # level of the monster
 export var mon_name = "Slime" setget set_name # name of monster
 
@@ -123,10 +124,20 @@ func spawn_loot():
 		get_parent().call_deferred("add_child", new_loot)
 		new_loot.global_position = global_position
 		
-		# TODO: set to be money or loot
-		new_loot.item = "money"
-		new_loot.amount = 1 # TODO: random amount
-		new_loot.call_deferred("set_icon", load("res://Assets/Items/money.png"))
+		if randf() <= chance_of_money: # chance of money or loot
+			# (1) money
+			new_loot.item = "money"
+			new_loot.amount = 1 # TODO: random amount
+			new_loot.call_deferred("set_icon", load("res://Assets/Items/money.png"))
+		else:
+			# (2) loot
+			var rand_index = floor(rand_range(0, loots.size()))
+			var item_key = loots[rand_index]
+			var item_data = Globals.db_items[item_key]
+			new_loot.item = item_key
+			new_loot.item_name = item_data["name"]
+			new_loot.amount = 1 # TODO: random amount
+			new_loot.call_deferred("set_icon", load(item_data["icon"]))
 
 func _on_Eyesight_body_shape_entered(_body_id, body, _body_shape, _area_shape):
 	if body.is_in_group("Player"):

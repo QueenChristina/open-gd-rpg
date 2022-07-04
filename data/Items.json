@@ -7,10 +7,19 @@
 	},
 
 "mochi" : {
+	"name" : "Mochi",
 	"icon" : "res://Assets/Items/Mochi.png",
 	"type" : "food",
 	"description" : "A small piece of the moon bunny's main manufactured product.",
 	"add_hp": 10,
 },
+
+"hp_potion" : {
+	"name" : "HP Potion",
+	"icon" : "res://Assets/Items/hp_potion.png",
+	"type" : "food",
+	"description" : "Iconic and mysterious red liquid that's totally not blood and will restore your health.",
+	"add_hp": 20,
+}
 
 }

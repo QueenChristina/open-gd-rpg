@@ -74,12 +74,15 @@ position = Vector2( 105.026, 473.891 )
 
 [node name="Boat" parent="YSort/Enviro" instance=ExtResource( 8 )]
 position = Vector2( 152.658, 166.81 )
+talk_id = "boat"
 
 [node name="Boat2" parent="YSort/Enviro" instance=ExtResource( 8 )]
 position = Vector2( 147.102, 216.813 )
+talk_id = "boat"
 
 [node name="Boat3" parent="YSort/Enviro" instance=ExtResource( 8 )]
 position = Vector2( 545.54, 300.945 )
+talk_id = "boat"
 
 [node name="Bush3" parent="YSort/Enviro" instance=ExtResource( 7 )]
 position = Vector2( 516.539, 162.673 )

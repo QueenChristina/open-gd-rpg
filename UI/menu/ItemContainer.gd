@@ -1,6 +1,7 @@
 extends Button
 
-export(String) var item_name = ""
+export(String) var item_key = "" # Used in editor as each item key is unique
+export(String) var item_name = "" # To display in game
 export(String) var item_description = ""
 export(int) var add_hp = 0
 export(int) var amount = 0 setget set_amount

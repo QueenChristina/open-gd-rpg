@@ -24,12 +24,20 @@ onready var hitboxPivot = $HitboxPivot
 onready var hurtbox = $Hurtbox
 onready var swordPivot = $SwordPivot
 onready var hurtSound = $hurtSound
+onready var lvSound = $lvSound
+onready var lvUpEffect = $LvUp
 onready var SAVE_KEY: String = "player"
 
 func _ready():
 	add_to_group("Player")
 	animationTree.active = true
 	hitbox.knockback_vector = Vector2.LEFT
+	PlayerStats.connect("lv_changed", self, "on_lv_up")
+	
+func on_lv_up():
+	lvUpEffect.frame = 0
+	lvSound.play()
+	lvUpEffect.play("default")
 
 func _physics_process(delta):
 	match state:
@@ -105,3 +113,7 @@ func _on_Hurtbox_area_entered(area):
 func _on_Stats_no_health():
 #	self.queue_free()
 	print("GAME OVER - player dead")
+
+
+func _on_LvUp_animation_finished():
+	lvUpEffect.frame = 6

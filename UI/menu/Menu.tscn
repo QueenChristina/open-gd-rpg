@@ -295,4 +295,5 @@ __meta__ = {
 }
 menu_path = NodePath("../Menu")
 
+[connection signal="visibility_changed" from="Menu" to="Menu" method="_on_Menu_visibility_changed"]
 [connection signal="pressed" from="MenuIcon" to="MenuIcon" method="_on_MenuIcon_pressed"]

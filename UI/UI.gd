@@ -9,11 +9,13 @@ onready var health_bar = $Control/Health
 onready var exp_bar = $Control/ExpBar
 onready var money_label = $Control/Money
 onready var quest_panel = $QuestPanel
+onready var label_lv = $Control/lv/Label
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PlayerStats.connect("health_changed", self, "set_health_bar")
 	PlayerStats.connect("exp_changed", self, "set_exp_bar")
 	PlayerStats.connect("money_changed", self, "set_money")
+	PlayerStats.connect("lv_changed", self, "set_lv")
 
 func start_dialog(index, dialog_style = ""):
 	# Choose different dialog box styles
@@ -43,6 +45,12 @@ func set_exp_bar():
 	
 func set_money():
 	money_label.text = str(PlayerStats.money)
+	
+func set_lv():
+	print("set level to " + str(PlayerStats.level))
+	label_lv.text = str(PlayerStats.level)
+	if PlayerStats.level < 10:
+		label_lv.text = " " + str(PlayerStats.level)
 	
 func hide():
 	control.hide()

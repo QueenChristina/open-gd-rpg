@@ -16,7 +16,5 @@ func _ready():
 
 func set_health(value):
 	health = value
-	print("health changed" + str(health))
 	if health <= 0:
 		emit_signal("no_health")
-		print("no health")

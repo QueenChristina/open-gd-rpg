@@ -7,7 +7,7 @@ export(int) var max_health = 50 setget set_max_health
 onready var health = max_health setget set_health, get_health
 var experience = 0 setget set_exp # cycles to 0 with level upgrades
 var max_experience = 100 setget set_max_exp
-var level = 1
+var level = 1 setget set_lv
 var inventory = {} # item : amount, item must match item in db_items
 var money = 0 setget set_money
 
@@ -16,6 +16,11 @@ signal health_changed
 signal inventory_changed
 signal exp_changed
 signal money_changed
+signal lv_changed
+
+func set_lv(value):
+	level = value
+	emit_signal("lv_changed")
 
 func set_money(value):
 	money = value
@@ -28,7 +33,7 @@ func set_max_health(value):
 func set_health(value):
 	health = clamp(value, 0, max_health)
 	emit_signal("health_changed")
-	print("Health at "+ str(health) + str(max_health))
+	print("Health at "+ str(health) + " of " + str(max_health))
 	if health <= 0:
 		emit_signal("no_health")
 
@@ -37,6 +42,11 @@ func get_health():
 
 func set_exp(value):
 	experience = value
+	if value > max_experience:
+		# TODO: better leveling system where max_exp increases with level
+		experience = 0
+		set_lv(level + 1)
+		set_health(max_health)
 	emit_signal("exp_changed")
 	
 func set_max_exp(value):

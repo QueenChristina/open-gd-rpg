@@ -154,4 +154,8 @@
 	"voice": "bunny",
 	"text": ["Oh, and what business are you on to be here?"], 
 },
+
+"boat" : {
+	"text" : ["The paper boat floats serenely as if in water."]
+}
 }
