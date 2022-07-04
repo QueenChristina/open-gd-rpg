@@ -1,16 +1,18 @@
 # open-gd-rpg
-Open source basic J-RPG in Godot.
+Open source basic action J-RPG in Godot.
 
 ## Features
 * [Player animations, initial RPG, and movement as done by HeartBeast](https://www.youtube.com/watch?v=mAbG8Oi-SvQ&list=PL9FzW-m48fn2SlrW0KoLT4n5egNdX-W9a&index=1)
 * Scene switching
 * [Advanced dialog system](https://github.com/QueenChristina/gd_dialog)
 * Inventory and Items system
-* Leveling System (incomplete)
 * Enemies/Monsters
 * Save system (incomplete)
 * Menu and settings (incomplete)
 * Quest System (incomplete)
+  * Receive quest logs after talking to NPCs.
+* Leveling Sytem
+  * Gain experience points and level up as you fight monsters.
 
 ## How to Use
 `utils`:
@@ -61,3 +63,6 @@ To save something's data, add them to the `save` group, and add `save` and `load
 ## Based on:
 * [Heartbeast's action RPG tutorial](https://www.youtube.com/watch?v=mAbG8Oi-SvQ&list=PL9FzW-m48fn2SlrW0KoLT4n5egNdX-W9a&index=1)
 * [GDQuest's Open RPG](https://github.com/GDQuest/godot-open-rpg)
+
+## Credits
+Leveling sound: https://freesound.org/people/qubodup/sounds/442943/
