@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://UI/dialog/dialog_voice.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Monster",
+"language": "GDScript",
+"path": "res://utils/Monster.gd"
+}, {
 "base": "Node",
 "class": "Place",
 "language": "GDScript",
@@ -70,6 +75,7 @@ _global_script_class_icons={
 "DialogChoices": "",
 "DialogNode": "",
 "DialogSound": "",
+"Monster": "",
 "Place": "",
 "SaveGame": "",
 "SpacerContainer": "",

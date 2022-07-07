@@ -29,7 +29,7 @@ func _on_Interact_body_shape_entered(_body_id, body, _body_shape, _area_shape):
 		is_in_interact_area = true
 
 func _on_Interact_body_shape_exited(_body_id, body, _body_shape, _area_shape):
-	if body.is_in_group("Player"):
+	if body != null and body.is_in_group("Player"):
 		interactable = false
 		is_in_interact_area = false
 

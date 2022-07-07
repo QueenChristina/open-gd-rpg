@@ -155,6 +155,42 @@
 	"text": ["Oh, and what business are you on to be here?"], 
 },
 
+"scarred_bunny" : {
+	"name": "Moon Bunny Guard", 
+	"icon": "bunny_scarred", 
+	"voice": "bunny",
+	"text": ["Monster! Get away from this sacred land.", "Oh? Ye hold the sacred sword. So you must be one of those heroes. And ye wish to pass through the sacred land?"],
+	"choices": [ 
+		{"text" : "Yes!", "next" : "scarred_bunny1" },
+		{"text" : "Sacred land?", "next" : "scarred_bunny2"},
+	], 
+},
+
+"scarred_bunny1" : {
+	"name": "Moon Bunny Guard", 
+	"icon": "bunny_scarred", 
+	"voice": "bunny",
+	"text": ["I see...well, even if ye hold the sacred sword, we still don't trust just anyone to trespass through the sacred land.", "Prove to me ye are worthy...only those with the sacred amulet, blessed by the sacred gods, may pass."],
+	"choices": [ 
+		{"text" : "OK.", "next" : "end", "show_only_if": "player inventory does_not_have sacred_amulet"},
+		{"text" : "I have the sacred amulet.", "next" : "end", "action": ["player inventory remove 1 sacred_amulet"], "show_only_if": "player inventory has sacred_amulet"}
+	],
+},
+
+"scarred_bunny2" : {
+	"name": "Moon Bunny Guard", 
+	"icon": "bunny_scarred", 
+	"voice": "bunny",
+	"text": ["Yes, I guard the sacred lands. Or to be more precise, the purgatory just before the sacred lands. It's a place for villagers to seek safety from the monsters that lurk outside and to be cleansed of their sins."],
+	"choices": [ 
+		{"text" : "I would like to pass through.", "next" : "scarred_bunny1"},
+	], 
+},
+
+"bunny_guard2" : {
+	"text" : ["Authorized personel beyond this point only."],
+},
+
 "boat" : {
 	"text" : ["The paper boat floats serenely as if in water."]
 }

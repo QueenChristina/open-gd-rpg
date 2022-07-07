@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Monsters/fire.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Monsters/Fireball.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Monsters/fire2.png" type="Texture" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Area2D
+# used by player and enemy monsters
+
+export var knockback_vector = Vector2.ZERO
+export var knockback_factor = 110
+export var damage = 10 # weapon attack power
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 7.66277
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
+[node name="Fireball" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+script = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+
+[node name="fire" type="AnimatedSprite" parent="Area2D"]
+frames = SubResource( 3 )
+playing = true

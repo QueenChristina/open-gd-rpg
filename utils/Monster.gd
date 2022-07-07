@@ -1,5 +1,6 @@
 # courtesy of HeartBeast https://www.youtube.com/watch?v=srQz4Ix8rZM
 extends KinematicBody2D
+class_name Monster
 
 export var ACCELERATION = 360
 export var MAX_SPEED = 50
@@ -10,6 +11,8 @@ export var chance_of_loot = 0.4 # Chance of getting loot/money at all
 export var chance_of_money = 0.5 # Chance of getting money instead of other items assuming you get loot
 export var level = 1 # level of the monster
 export var mon_name = "Slime" setget set_name # name of monster
+export var wanderable = true
+export var knockback_factor = 110
 
 enum {
 	IDLE,
@@ -39,10 +42,11 @@ func _ready():
 	healthBar.max_value = stats.max_health
 	healthBar.value = stats.health
 	healthBar.visible = false
+	labelName.text = mon_name
 	
 func set_name(value):
 	mon_name = value
-	labelName.text = mon_name
+	
 	
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
@@ -87,8 +91,9 @@ func accelerate_towards(point, delta):
 	sprite.flip_h = velocity.x < 0
 
 func update_wander():
-	state = pick_random_state([IDLE, WANDER])
-	wanderController.start_wander_timer(rand_range(1, 3))
+	if wanderable:
+		state = pick_random_state([IDLE, WANDER])
+		wanderController.start_wander_timer(rand_range(1, 3))
 
 func seek_player():
 	if is_player_in_sight:
@@ -98,9 +103,10 @@ func pick_random_state(state_list):
 	state_list.shuffle()
 	return state_list.pop_front()
 
+# Monster gets hurt
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
-	knockback = area.knockback_vector * 110
+	knockback = area.knockback_vector * knockback_factor
 	hurtSound.play()
 	sprite.modulate = Color(100, 100, 100, 1)
 	modTimer.start()

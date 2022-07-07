@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://utils/Camera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://utils/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Assets/Enviro/Tree.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/Enviro/River.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Monsters/Slime.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Assets/Monsters/Dandelion.tscn" type="PackedScene" id=12]
 
 [node name="MoonBunnyOpening" type="Node"]
 script = ExtResource( 5 )
@@ -96,13 +97,28 @@ z_index = 0
 [node name="Enemies" type="YSort" parent="YSort"]
 
 [node name="Slime" parent="YSort/Enemies" instance=ExtResource( 11 )]
-position = Vector2( 447.822, 150.052 )
+position = Vector2( 447.227, 150.052 )
 
 [node name="Slime2" parent="YSort/Enemies" instance=ExtResource( 11 )]
 position = Vector2( 238.47, 269.428 )
 
 [node name="Slime3" parent="YSort/Enemies" instance=ExtResource( 11 )]
 position = Vector2( 405.808, 421.63 )
+
+[node name="Dandelion" parent="YSort/Enemies" instance=ExtResource( 12 )]
+position = Vector2( 190.021, 106.866 )
+
+[node name="Dandelion2" parent="YSort/Enemies" instance=ExtResource( 12 )]
+position = Vector2( 208.014, 156.55 )
+
+[node name="Dandelion3" parent="YSort/Enemies" instance=ExtResource( 12 )]
+position = Vector2( 182.558, 145.589 )
+
+[node name="Dandelion4" parent="YSort/Enemies" instance=ExtResource( 12 )]
+position = Vector2( 607.399, 373.02 )
+
+[node name="Dandelion5" parent="YSort/Enemies" instance=ExtResource( 12 )]
+position = Vector2( 572.912, 380.749 )
 
 [node name="EnterPos" type="Node2D" parent="."]
 

@@ -27,6 +27,7 @@ onready var hurtSound = $hurtSound
 onready var lvSound = $lvSound
 onready var lvUpEffect = $LvUp
 onready var SAVE_KEY: String = "player"
+var knockback = Vector2.ZERO
 
 func _ready():
 	add_to_group("Player")
@@ -40,6 +41,7 @@ func on_lv_up():
 	lvUpEffect.play("default")
 
 func _physics_process(delta):
+	PlayerStats.player_position = global_position
 	match state:
 		MOVE:
 			move_state(delta)
@@ -58,6 +60,7 @@ func move_state(delta):
 		state = ATTACK
 	# Run only if game not paused.
 	elif input_vector != Vector2.ZERO and !GameState.is_paused():
+		# do knockback
 		hitbox.knockback_vector = input_vector
 		# Set idle here so it will 'remember' the last direction
 		# based on coordinate grid triangle in tree.
@@ -73,12 +76,16 @@ func move_state(delta):
 			hitboxPivot.scale.x = 1
 		animationState.travel("Run")
 		# Multiply velocity by delta incase of computer lag
-		velocity = MAX_SPEED*input_vector * delta
+		velocity = MAX_SPEED * input_vector * delta
 	else:
 		# Not moving
 		animationState.travel("Idle")
 		velocity = Vector2.ZERO
-	move_and_collide(velocity)
+	
+	# get knocked back
+	knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
+	knockback = move_and_slide(knockback)
+	move_and_collide(velocity + delta * knockback)
 	
 func attack_state(_delta):
 	velocity = Vector2.ZERO #to stop sliding
@@ -106,9 +113,13 @@ func load(save_game: Resource):
 
 # When an enemy hitbox enters the player's hurtbox
 func _on_Hurtbox_area_entered(area):
-	stats.health -= area.damage
-	hurtbox.create_hit_effect()
-	hurtSound.play()
+	if area.damage > 0:
+		stats.health -= area.damage
+		hurtbox.create_hit_effect()
+		hurtSound.play()
+		if area.knockback_vector != Vector2.ZERO:
+			print("knocked back!!!!")
+			knockback = area.knockback_vector * area.knockback_factor
 
 func _on_Stats_no_health():
 #	self.queue_free()

@@ -20,6 +20,14 @@
 	"type" : "food",
 	"description" : "Iconic and mysterious red liquid that's totally not blood and will restore your health.",
 	"add_hp": 20,
+},
+
+"sacred_amulet" : {
+	"name" : "Sacred Amulet",
+	"icon" : "res://Assets/Items/sacred_amulet.png",
+	"type" : "equipment",
+	"description" : "Sacred amulet of the moon bunny gods.",
+	"add_hp": 0,
 }
 
 }

@@ -5,6 +5,7 @@ onready var item_grid_container = $TabContainer/Items/HBoxContainer/MarginContai
 onready var item_name = $TabContainer/Items/HBoxContainer/MarginContainer2/VBoxContainer/Label
 onready var item_description = $TabContainer/Items/HBoxContainer/MarginContainer2/VBoxContainer/RichTextLabel
 onready var use_item_button = $TabContainer/Items/HBoxContainer/MarginContainer2/VBoxContainer/UseButton
+var curr_selected_item_container = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PlayerStats.connect("inventory_changed", self, "on_inventory_changed")
@@ -37,10 +38,10 @@ func on_inventory_changed():
 		item_index += 1
 		
 func on_item_container_selected(item_container):
+	curr_selected_item_container = item_container
 	item_name.text = item_container.item_name
 	item_description.text = item_container.item_description
-	if !use_item_button.connect("pressed", self, "on_item_used"):
-		use_item_button.connect("pressed", self, "on_item_used", [item_container])
+	use_item_button.connect("pressed", self, "on_item_used", [item_container])
 	if item_container.add_hp != 0:
 		use_item_button.disabled = false
 	else:
@@ -50,7 +51,10 @@ func on_item_used(item_container):
 	PlayerStats.health += item_container.add_hp
 	PlayerStats.remove_inventory_item(item_container.item_key, 1)
 	on_inventory_changed()
-
+	if curr_selected_item_container.add_hp != 0:
+		use_item_button.disabled = false
+	else:
+		use_item_button.disabled = true
 
 func _on_Menu_visibility_changed():
 	if self.visible:

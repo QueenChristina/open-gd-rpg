@@ -84,7 +84,7 @@ position = Vector2( 338.881, 173.225 )
 position = Vector2( 338.881, 173.225 )
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="YSort/Player"]
-remote_path = NodePath("../../Camera")
+remote_path = NodePath("../../../TileMap")
 
 [node name="EnterPos" type="Node2D" parent="."]
 

@@ -164,6 +164,9 @@ margin_bottom = 120.0
 [node name="PanelContainer" parent="DialogSmall/TextBox/Margin/HBox" index="0"]
 custom_styles/panel = SubResource( 3 )
 
+[node name="Icon" parent="DialogSmall/TextBox/Margin/HBox/PanelContainer" index="0"]
+frame = 0
+
 [node name="VBox" parent="DialogSmall/TextBox/Margin/HBox" index="1"]
 margin_right = 510.0
 
@@ -203,9 +206,13 @@ custom_styles/panel = SubResource( 5 )
 [node name="PanelContainer" parent="DialogBlack/TextBox/Margin/HBox" index="0"]
 custom_styles/panel = SubResource( 6 )
 
+[node name="Icon" parent="DialogBlack/TextBox/Margin/HBox/PanelContainer" index="0"]
+frame = 0
+
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -215,6 +222,7 @@ margin_left = -0.0162351
 margin_top = -0.0162201
 margin_right = -0.0162354
 margin_bottom = -0.0162048
+mouse_filter = 1
 
 [node name="money" type="Sprite" parent="Control"]
 position = Vector2( 47.0894, 15.6855 )
@@ -297,6 +305,7 @@ margin_left = 210.674
 margin_top = 60.6629
 margin_right = 408.674
 margin_bottom = 298.663
+mouse_filter = 1
 theme = ExtResource( 11 )
 custom_styles/panel = SubResource( 7 )
 script = ExtResource( 13 )

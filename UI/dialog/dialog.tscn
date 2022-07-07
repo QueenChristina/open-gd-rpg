@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://UI/Handwrittenrpg-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://UI/Handwrittenrpg-Bold.ttf" type="DynamicFontData" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://UI/dialog/ButtonSound.gd" type="Script" id=14]
 [ext_resource path="res://Assets/Actors/BirdIcon.png" type="Texture" id=15]
 [ext_resource path="res://UI/dialog/Next.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Actors/BunnyScarredIcon.png" type="Texture" id=17]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 7 )
@@ -38,11 +39,11 @@ border_color = Color( 0.890196, 0.286275, 0.286275, 1 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 82, 112 )
+region = Rect2( 164, 0, 82, 112 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 12 )
-region = Rect2( 82, 0, 82, 112 )
+region = Rect2( 246, 0, 82, 112 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 15 )
@@ -78,13 +79,21 @@ region = Rect2( 854, 0, 122, 112 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 12 )
-region = Rect2( 164, 0, 82, 112 )
+region = Rect2( 0, 0, 82, 112 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 12 )
-region = Rect2( 246, 0, 82, 112 )
+region = Rect2( 82, 0, 82, 112 )
 
-[sub_resource type="SpriteFrames" id=16]
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 17 )
+region = Rect2( 0, 0, 82, 112 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 17 )
+region = Rect2( 82, 0, 82, 112 )
+
+[sub_resource type="SpriteFrames" id=18]
 animations = [ {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
@@ -93,8 +102,8 @@ animations = [ {
 }, {
 "frames": [ SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
-"name": "bunny_default",
-"speed": 2.0
+"name": "bunny_closed_eyes",
+"speed": 4.0
 }, {
 "frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
@@ -103,22 +112,26 @@ animations = [ {
 }, {
 "frames": [ SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
-"name": "bunny_closed_eyes",
-"speed": 4.0
+"name": "bunny_default",
+"speed": 2.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "bunny_scarred",
+"speed": 5.0
 } ]
 
-[sub_resource type="DynamicFont" id=17]
+[sub_resource type="DynamicFont" id=19]
 size = 20
 outline_size = 2
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=18]
+[sub_resource type="DynamicFont" id=20]
 size = 20
 outline_size = 2
 font_data = ExtResource( 2 )
 
-[sub_resource type="Animation" id=19]
-resource_name = "Idle"
+[sub_resource type="Animation" id=21]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -242,8 +255,8 @@ __meta__ = {
 
 [node name="Icon" type="AnimatedSprite" parent="TextBox/Margin/HBox/PanelContainer"]
 position = Vector2( 45, 55 )
-frames = SubResource( 16 )
-animation = "bunny_closed_eyes"
+frames = SubResource( 18 )
+animation = "bunny_scarred"
 frame = 1
 playing = true
 
@@ -260,8 +273,8 @@ margin_bottom = 69.0
 rect_clip_content = false
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/mono_font = SubResource( 17 )
-custom_fonts/bold_italics_font = SubResource( 18 )
+custom_fonts/mono_font = SubResource( 19 )
+custom_fonts/bold_italics_font = SubResource( 20 )
 custom_colors/default_color = Color( 0.568627, 0, 0.235294, 1 )
 bbcode_enabled = true
 bbcode_text = "Dialogue text goes here."
@@ -309,7 +322,7 @@ centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="NextIcon/Next"]
 autoplay = "Idle"
-anims/Idle = SubResource( 19 )
+anims/Idle = SubResource( 21 )
 
 [node name="ButtonSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
@@ -319,5 +332,5 @@ script = ExtResource( 14 )
 [node name="Sound" parent="." instance=ExtResource( 11 )]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="choice_selected" from="TextBox/Margin/HBox/VBox/Choices" to="." method="_on_choice_selected"]
 [connection signal="choice_selected" from="TextBox/Margin/HBox/VBox/Choices" to="ButtonSound" method="_on_choice_selected"]
+[connection signal="choice_selected" from="TextBox/Margin/HBox/VBox/Choices" to="." method="_on_choice_selected"]

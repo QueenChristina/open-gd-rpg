@@ -1,0 +1,157 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://utils/area/SoftCollision.gd" type="Script" id=2]
+[ext_resource path="res://utils/enemy/Stats.gd" type="Script" id=3]
+[ext_resource path="res://utils/Monster.gd" type="Script" id=4]
+[ext_resource path="res://Audio/SFX/hit.wav" type="AudioStream" id=5]
+[ext_resource path="res://Assets/Monsters/dandelion.png" type="Texture" id=6]
+[ext_resource path="res://UI/Handwrittenrpg-Bold.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://UI/HealthBarFill.png" type="Texture" id=8]
+[ext_resource path="res://UI/HealthBarUnder.png" type="Texture" id=9]
+[ext_resource path="res://utils/enemy/WanderController.tscn" type="PackedScene" id=10]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 6 )
+region = Rect2( 34, 0, 34, 34 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 4.41361
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 19.0675
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Area2D
+# used by player and enemy monsters
+
+export var knockback_vector = Vector2.ZERO
+export var damage = 10 # weapon attack power
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 7.10251
+
+[sub_resource type="DynamicFont" id=8]
+size = 55
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 7 )
+
+[node name="Dandelion" type="KinematicBody2D"]
+collision_layer = 16
+script = ExtResource( 4 )
+experience = 0
+chance_of_loot = 0.6
+mon_name = "Dandelion"
+wanderable = false
+knockback_factor = 0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -12 )
+frames = SubResource( 3 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -5 )
+rotation = 1.5708
+shape = SubResource( 4 )
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 0, -10 )
+shape = SubResource( 5 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+script = SubResource( 6 )
+damage = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0.618717, -9.36917 )
+shape = SubResource( 7 )
+
+[node name="Eyesight" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Eyesight"]
+
+[node name="SoftCollision" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 64
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource( 3 )
+max_health = 1
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="WanderController" parent="." instance=ExtResource( 10 )]
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = -11.0
+margin_top = -36.9555
+margin_right = 101.0
+margin_bottom = -16.9555
+rect_scale = Vector2( 0.2, 0.2 )
+max_value = 30.0
+value = 30.0
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HealthBar"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -52.0
+margin_top = -59.0
+margin_right = 52.0
+custom_fonts/font = SubResource( 8 )
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="body_shape_entered" from="Hurtbox" to="." method="_on_Hitbox_body_shape_entered"]
+[connection signal="body_shape_entered" from="Eyesight" to="." method="_on_Eyesight_body_shape_entered"]
+[connection signal="body_shape_exited" from="Eyesight" to="." method="_on_Eyesight_body_shape_exited"]
+[connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

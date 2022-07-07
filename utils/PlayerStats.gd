@@ -10,6 +10,7 @@ var max_experience = 100 setget set_max_exp
 var level = 1 setget set_lv
 var inventory = {} # item : amount, item must match item in db_items
 var money = 0 setget set_money
+var player_position = Vector2.ZERO
 
 signal no_health
 signal health_changed
