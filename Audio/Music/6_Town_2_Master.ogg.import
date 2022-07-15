@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/6_Town_2_Master.ogg-2f2db2e18a10211306261778e7091912.oggstr"
+
+[deps]
+
+source_file="res://Audio/Music/6_Town_2_Master.ogg"
+dest_files=[ "res://.import/6_Town_2_Master.ogg-2f2db2e18a10211306261778e7091912.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

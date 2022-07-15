@@ -20,6 +20,7 @@ onready var sprite = $Sprite
 onready var animationState = animationTree.get("parameters/playback")
 onready var stats = PlayerStats # Instead of $PlayStats, as autoloaded gets put at root of tree - modify the one at the root
 onready var hitbox = $HitboxPivot/Hitbox
+onready var hitboxShape = $HitboxPivot/Hitbox/CollisionShape2D2
 onready var hitboxPivot = $HitboxPivot
 onready var hurtbox = $Hurtbox
 onready var swordPivot = $SwordPivot
@@ -34,6 +35,13 @@ func _ready():
 	animationTree.active = true
 	hitbox.knockback_vector = Vector2.LEFT
 	PlayerStats.connect("lv_changed", self, "on_lv_up")
+	# For story purpose
+	Globals.connect("trade_sword", self, "_on_trade_sword")
+	
+func _on_trade_sword():
+	swordPivot.hide()
+	hitboxShape.disabled = true
+	stats.money += 999999
 	
 func on_lv_up():
 	lvUpEffect.frame = 0
@@ -98,6 +106,7 @@ func attack_state_finished():
 func save(save_game: Resource):
 	save_game.data[SAVE_KEY] = {
 		'experience': stats.experience,
+		'level' : stats.level,
 		'health': stats.health,
 		'inventory': stats.inventory,
 		'global position' : self.global_position
@@ -106,11 +115,13 @@ func save(save_game: Resource):
 func load(save_game: Resource):
 	var data: Dictionary = save_game.data[SAVE_KEY]
 	stats.experience = data['experience']
+	stats.level = data['level']
 	stats.health = data['health']
 	stats.inventory = data['inventory']
 	self.global_position = data['global position']
 
 
+# When an enemy hitbox enters the player's hurtbox
 # When an enemy hitbox enters the player's hurtbox
 func _on_Hurtbox_area_entered(area):
 	if area.damage > 0:
@@ -118,7 +129,6 @@ func _on_Hurtbox_area_entered(area):
 		hurtbox.create_hit_effect()
 		hurtSound.play()
 		if area.knockback_vector != Vector2.ZERO:
-			print("knocked back!!!!")
 			knockback = area.knockback_vector * area.knockback_factor
 
 func _on_Stats_no_health():

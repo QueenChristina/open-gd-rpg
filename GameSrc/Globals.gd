@@ -7,6 +7,8 @@ extends Node
 signal play_animation(animation)
 signal play_sound(sound)
 signal screen_shake
+signal trade_sword
+signal ending
 
 export var dialog_file = "res://data/Dialogue.json"
 export var voices_file = "res://data/Voices.json"
@@ -21,12 +23,15 @@ var data = {} # TODO: keep data here, but move actionHandler # In game global da
 
 var player_name = "Bobby" # TODO: move to Player stats
 
+var SAVE_KEY = "Globals"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# TODO: Store in global variables, so load only once per file (not each instance of Dialog)
 	db_dialog = LoadFile(dialog_file) #Globals.db_dialog
 	db_voices = LoadFile(voices_file)
 	db_items = LoadFile(items_file)
+	self.add_to_group("save")
 	
 # TODO: validate database. Debug script that validates db_dialog and db_voices when loaded. Then, remove 
 # in-script warnings.
@@ -178,3 +183,14 @@ func LoadFile(file_name):
 	else:
 		print("File Open Error: could not open file " + file_name)
 	file.close()
+
+
+func save(save_game: Resource):
+	save_game.data[SAVE_KEY] = {
+		"data" : data,
+	}
+
+func load(save_game: Resource):
+	if save_game.data.has(SAVE_KEY):
+		var data : Dictionary = save_game.data[SAVE_KEY]
+		data = data["data"]

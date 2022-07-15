@@ -1,15 +1,18 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Assets/32Tileset.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Actors/wolf.png" type="Texture" id=2]
 [ext_resource path="res://utils/area/Teleport.tscn" type="PackedScene" id=3]
 [ext_resource path="res://utils/Camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://utils/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://utils/TalkableItem.gd" type="Script" id=6]
+[ext_resource path="res://World/story/OpeningScaredWolf.gd" type="Script" id=6]
 [ext_resource path="res://Assets/Monsters/Slime.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Enviro/Bush.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Enviro/Tree.tscn" type="PackedScene" id=9]
-[ext_resource path="res://utils/area/Place.gd" type="Script" id=10]
+[ext_resource path="res://World/story/Opening.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Actors/wolfScared2.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Actors/wolfScared.png" type="Texture" id=12]
+[ext_resource path="res://utils/AnimationPlayer.gd" type="Script" id=13]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -80,6 +83,11 @@ region = Rect2( 91, 0, 91, 58 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "scared",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "default",
@@ -87,12 +95,69 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 30.3461, 10 )
+extents = Vector2( 15.9565, 15.0544 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 34.7217, 11.2982 )
+extents = Vector2( 36.6161, 26.1311 )
 
-[node name="Opening" type="Node"]
+[sub_resource type="Animation" id=9]
+resource_name = "intro_slimes"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("YSort/Slime:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -60.6859, 93.1135 ), Vector2( 173.05, 149.3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("YSort/Slime2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 726.207, 55.0564 ), Vector2( 500.712, 135.965 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("YSort/Slime3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 31.8864, 391.436 ), Vector2( 210.185, 291.799 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("YSort/Slime4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 722.521, 321.408 ), Vector2( 523.246, 268.967 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "onboard"
+
+[node name="Opening" type="Node" groups=[
+"save",
+]]
 script = ExtResource( 10 )
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -113,16 +178,16 @@ position = Vector2( 338.881, 173.225 )
 remote_path = NodePath("../../Camera")
 
 [node name="Slime" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 173.05, 149.3 )
+position = Vector2( -60.6859, 93.1135 )
 
 [node name="Slime2" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 500.712, 135.965 )
+position = Vector2( 726.207, 55.0564 )
 
 [node name="Slime3" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 210.185, 291.799 )
+position = Vector2( 31.8864, 391.436 )
 
 [node name="Slime4" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 523.246, 268.967 )
+position = Vector2( 722.521, 321.408 )
 
 [node name="Enviro" type="YSort" parent="YSort"]
 
@@ -149,6 +214,10 @@ curr_type = 3
 position = Vector2( 566.436, -0.218483 )
 curr_type = 3
 
+[node name="Bush7" parent="YSort/Enviro" instance=ExtResource( 8 )]
+position = Vector2( 665.214, 75.8674 )
+curr_type = 2
+
 [node name="Tree" parent="YSort/Enviro" instance=ExtResource( 9 )]
 position = Vector2( 39.8427, 343.502 )
 
@@ -156,29 +225,33 @@ position = Vector2( 39.8427, 343.502 )
 position = Vector2( 641.854, 346.839 )
 curr_type = 3
 
-[node name="Wolf" type="StaticBody2D" parent="YSort"]
+[node name="Wolf" type="StaticBody2D" parent="YSort" groups=[
+"save",
+]]
 position = Vector2( 342.422, 112.569 )
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_group_": true
 }
 talk_id = "wolf_quest"
-quest_title = "Kill the Slimes"
-quest_description = "Kill the Slimes that have been terrorizing the village."
+quest_title = "Wolfy Wants No Slimes"
+quest_description = "Kill all the slimes."
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Wolf"]
 position = Vector2( -0.23597, -23.315 )
 frames = SubResource( 5 )
+animation = "scared"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Wolf"]
-position = Vector2( 0, -16 )
+position = Vector2( -0.594604, -5.59444 )
 shape = SubResource( 6 )
 
 [node name="Interact" type="Area2D" parent="YSort/Wolf"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Wolf/Interact"]
-position = Vector2( 0.576965, 4.15402 )
+position = Vector2( 0.576965, 6.53244 )
 shape = SubResource( 7 )
 
 [node name="EnterPos" type="Node2D" parent="."]
@@ -200,7 +273,19 @@ new_scene_path = "res://World/story/Introduction.tscn"
 position = Vector2( 330.475, 368.431 )
 new_scene_path = "res://World/MoonBunnyOpening.tscn"
 
+[node name="OpeningAnimationPlayer" type="AnimationPlayer" parent="." groups=[
+"save",
+]]
+anims/intro_slimes = SubResource( 9 )
+anims/onboard = SubResource( 8 )
+script = ExtResource( 13 )
+
+[connection signal="killed" from="YSort/Slime" to="YSort/Wolf" method="_on_slime_killed"]
+[connection signal="killed" from="YSort/Slime2" to="YSort/Wolf" method="_on_slime_killed"]
+[connection signal="killed" from="YSort/Slime3" to="YSort/Wolf" method="_on_slime_killed"]
+[connection signal="killed" from="YSort/Slime4" to="YSort/Wolf" method="_on_slime_killed"]
 [connection signal="body_shape_entered" from="YSort/Wolf/Interact" to="YSort/Wolf" method="_on_Interact_body_shape_entered"]
 [connection signal="body_shape_exited" from="YSort/Wolf/Interact" to="YSort/Wolf" method="_on_Interact_body_shape_exited"]
 [connection signal="switch_to" from="Teleport" to="." method="_on_Teleport_switch_to"]
 [connection signal="switch_to" from="Teleport2" to="." method="_on_Teleport_switch_to"]
+[connection signal="animation_finished" from="OpeningAnimationPlayer" to="OpeningAnimationPlayer" method="_on_animation_finished"]

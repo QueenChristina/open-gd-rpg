@@ -52,7 +52,20 @@
 },
 
 "wolf_quest": {
-	"text": ["Help! Help! Aaaaah!", "Wha? Oh! You there! You're carrying a sword. So you must be one of those...uh...h-heros!?!?!", "Thank goodness!", " These slimes have been terrorizing the village nearby. Please eliminate the monsters that blight this world.", "(Click to attack.)"],
+	"icon" : "wolf_fear",
+	"text": ["Help! Help! Aaaaah!", "Wha? Oh! You there! You're carrying a sword. So you must be one of those...uh...h-heros!?!?!", "Thank goodness!", " These slimes have been terrorizing the village nearby. Please eliminate the monsters that blight this world."],
+	"action" : ["screen shake"]
+},
+
+"wolf_quest_finished" : {
+	"icon" : "wolf_fear",
+	"text": ["AAAA THANK YOU SO MUCH! You saved my life. Here, take these health potions as thanks. Open the menu with the top left icon and use them to recover your health -- don't want to die from these pesky monsters aha."],
+	"action" : ["screen shake", "player inventory add 3 hp_potion", "set has_gotten_wolfy_slime_reward true"]
+},
+
+"wolf_quest_post_finished" : {
+	"icon" : "wolf_fear",
+	"text": ["Thank you again for saving me!!!!"],
 },
 
 "RPG in RPG" :{
@@ -173,7 +186,7 @@
 	"text": ["I see...well, even if ye hold the sacred sword, we still don't trust just anyone to trespass through the sacred land.", "Prove to me ye are worthy...only those with the sacred amulet, blessed by the sacred gods, may pass."],
 	"choices": [ 
 		{"text" : "OK.", "next" : "end", "show_only_if": "player inventory does_not_have sacred_amulet"},
-		{"text" : "I have the sacred amulet.", "next" : "end", "action": ["player inventory remove 1 sacred_amulet"], "show_only_if": "player inventory has sacred_amulet"}
+		{"text" : "I have the sacred amulet.", "next" : "scarred_bunny3", "action": ["player inventory remove 1 sacred_amulet"], "show_only_if": "player inventory has sacred_amulet"}
 	],
 },
 
@@ -187,11 +200,89 @@
 	], 
 },
 
+"scarred_bunny3" : {
+	"name": "Moon Bunny Guard", 
+	"icon": "bunny_scarred", 
+	"voice": "bunny",
+	"text": ["W-what!?!? Amazing! Noone has held or even seen a sacred amulet in years, yet ye...!?!?! You really must be a holy one.", "Come, I shall hold onto ye amulet, feel free to pass through to the sacred lands yonder."],
+	"action": ["play_anim open_gates"],
+},
+
 "bunny_guard2" : {
 	"text" : ["Authorized personel beyond this point only."],
 },
 
 "boat" : {
 	"text" : ["The paper boat floats serenely as if in water."]
+},
+
+"hand_tutorial" : {
+	"name": "Left Hand of God", 
+	"icon" : "up_hand",
+	"text" : ["Howdy! Welcome, hero, to my RPG (role-playing game), the game where you get to live out your wildest dreams as the hero of a new world.", "I'm the left hand of god, here to show you what's up. Please press \"ENTER\" and use the arrow keys to progress dialog."],
+	"choices": [ 
+		{"text" : "OK", "next" : "hand_tutorial2"},
+		{"text" : "Got it!!!", "next" : "hand_tutorial2"},
+	], 
+},
+"hand_tutorial2" : {
+	"name": "Left Hand of God", 
+	"icon" : "up_hand",
+	"text" : ["And -AAAAH! Be careful! \"CLICK\" to attack before they kill you!"],
+	"action": ["play_anim intro_slimes"],
+},
+"house" : {
+	"text" : ["The door is locked."],
+},
+"guard_portal_1" : {
+	"name": "Moon Bunny Guard", 
+	"icon": "bunny_default", 
+	"text" : ["Halt! This is the portal to yonder.", "Denizens aren't allowed to pass until they've gotten a sign from god.", "Unless...", "(His eyes shift cautiously to glance from side to side.)", "A proper and bountiful \"tithe\" is given to appease the gods. Then, maybe then, will I allow one to pass through."],
+	"choices": [ 
+		{"text" : "I have the tithe. (Offer your money.)", "next" : "guard_portal_2", "show_only_if": "data has_traded is true"},
+		{"text" : "... (I'd rather not pass.)", "next" : "end", "show_only_if": "data has_traded is true"},
+		{"text" : "...", "next" : "end", "show_only_if": "data has_traded is false"},
+	], 
+},
+"guard_portal_2" : {
+	"text" : ["(You sneakily pass the \"tithe\" to the guard. The money disappears as he hastily sticks it into his fur pockets.)", "Pass onto yonder?"],
+	"choices": [ 
+		{"text" : "Yes.", "next": "guard_portal_3"},
+	], 
+},
+
+"guard_portal_3" : {
+	"name": "Moon Bunny Guard", 
+	"icon": "bunny_default", 
+	"text" : ["(The guard smiles.)", "Have you heard? Some monster killed the local god.", "Good thing we hired a hero with a shiny red sword to deal with the monsters lurking about. :)"],
+	"next" : "guard_portal_4"
+},
+
+"guard_portal_4" : {
+	"text" : ["..."],
+	"action": ["play_anim enter_portal", "emit_signal ending"],
+},
+
+"ending" : {
+	"text" : ["(The hero's shiny red sword flashes and slays the monster.)", "...", "(To pass on, please close the game.)"]
+},
+
+"portal_1" : {
+	"text" : ["The sky shimmers in its center."],
+},
+"merchant1" : {
+	"text" : ["Psst...hey your sword looks real shiny. Look here, if ye can give me yer sword, I'll pay you like no other. Then ye can pass onto yonder."],
+	"choices": [ 
+		{"text" : "OK, you can have my sword", "next" : "merchant3", "show_only_if": "data has_traded is false"},
+		{"text" : "What? No way!", "next" : "merchant2", "show_only_if": "data has_traded is false"},
+		{"text" : "Thanks again for the trade!", "next" : "end", "show_only_if": "data has_traded is true"},
+	], 
+},
+"merchant2" : {
+	"text" : ["Pfft, whatever. Stay stuck here forever if ye wish."], 
+},
+"merchant3" : {
+	"text" : ["(The merchant grins...) \nGood choice, my dear."],
+	"action": ["emit_signal trade_sword", "set has_traded true"],
 }
 }

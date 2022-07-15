@@ -5,8 +5,8 @@
 [resource]
 shader = ExtResource( 1 )
 shader_param/wave_speed = 1.0
-shader_param/wave_freq = 3.0
+shader_param/wave_freq = 10.0
 shader_param/wave_width = 0.3
 shader_param/Strength = 5.1
 shader_param/RandomOffset = 0.02
-shader_param/TimeFactor = 0.1
+shader_param/TimeFactor = 1.042

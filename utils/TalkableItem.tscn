@@ -2,7 +2,9 @@
 
 [ext_resource path="res://utils/TalkableItem.gd" type="Script" id=1]
 
-[node name="TalkableItem" type="StaticBody2D"]
+[node name="TalkableItem" type="StaticBody2D" groups=[
+"save",
+]]
 script = ExtResource( 1 )
 talk_id = "bunny_quest"
 

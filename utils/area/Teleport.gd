@@ -24,5 +24,5 @@ func _on_Teleport_body_shape_entered(_body_id, body, _body_shape, _area_shape):
 		# https://www.reddit.com/r/godot/comments/gbrt9a/how_to_save_previous_scene_when_switching_scenes/ (option 3)
 		# https://www.reddit.com/r/godot/comments/ccfgdw/how_would_you_go_about_loading_a_previous_scene/
 		
-		GameSaver.save(999) # TODO: a better temp save file name?
+		GameSaver.save(997) # TODO: a better temp save file name?
 		# TODO: connect to new scene AND which area in scene to spawn to!

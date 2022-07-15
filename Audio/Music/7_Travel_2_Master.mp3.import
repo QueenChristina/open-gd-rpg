@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/7_Travel_2_Master.mp3-117d9902ce83613624e00b7ccdf6c4ff.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/7_Travel_2_Master.mp3"
+dest_files=[ "res://.import/7_Travel_2_Master.mp3-117d9902ce83613624e00b7ccdf6c4ff.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

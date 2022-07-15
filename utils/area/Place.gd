@@ -11,12 +11,13 @@ onready var player = $YSort/Player
 
 func _ready():
 	pass
+	# TODO: save to packed scene w/ nodes instead (see: add to group, persistent)
 
 # teleport to here
 func teleport_to_this(position_id):
 	var teleportEnterPos = get_node_or_null("EnterPos")
 	if teleportEnterPos:
-		GameSaver.load(999, true) # Save game to temp file when switching scenes
+		GameSaver.load(997, true) # Save game to temp file when switching scenes
 		
 		var position2D = teleportEnterPos.get_children()[position_id]
 		player.global_position = position2D.position

@@ -1,0 +1,32 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://UI/save/SaveGame.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+game_version = ""
+data = {
+"Globals": {
+"data": {
+}
+},
+"Opening_Tutorial": {
+"done_tutorial": true
+},
+"TalkableItem_Opening_Wolf": {
+"quest_finished": false,
+"talk_id": "wolf_quest"
+},
+"TalkableItem_World_TalkableItem": {
+"quest_finished": false,
+"talk_id": "bunny_quest"
+},
+"anim_player_EntranceAnimationPlayer_Introduction": {
+"animation": "open_gates",
+"animation_position": 1.0
+},
+"anim_player_OpeningAnimationPlayer_Introduction": {
+"animation": "intro_slimes",
+"animation_position": 4.0
+}
+}

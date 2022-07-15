@@ -6,4 +6,11 @@
 script = ExtResource( 1 )
 game_version = ""
 data = {
+"Opening_Tutorial": {
+"done_tutorial": false
+},
+"anim_player_AnimationPlayer_Introduction": {
+"animation": "intro_slimes",
+"animation_position": 4.0
+}
 }

@@ -36,6 +36,8 @@ onready var labelName = $HealthBar/Label
 
 var state = IDLE
 
+signal killed(mon_name)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	labelName.text = mon_name
@@ -119,6 +121,7 @@ func _on_Timer_timeout():
 func _on_Stats_no_health():
 	hurtSound.play()
 	spawn_loot()
+	emit_signal("killed", mon_name)
 	yield(hurtSound, "finished")
 	queue_free()
 
