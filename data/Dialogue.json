@@ -158,14 +158,14 @@
 	"name": "Moon Bunny", 
 	"icon": "bunny_default", 
 	"voice": "bunny",
-	"text": ["Hrmph! And who are you to be wandering into moon bunny territory?"], 
+	"text": ["Hrmph! And who are you to be wandering into moon bunny territory? Are you a sacred one?"], 
 },
 
 "bunny_general2" : {
 	"name": "Moon Bunny", 
 	"icon": "bunny_default", 
 	"voice": "bunny",
-	"text": ["Oh, and what business are you on to be here?"], 
+	"text": ["Rumor has it that if one travels far enough east, one might catch a glimpse of the sacred god. Though, only those who are truly holy enough, or have angered the god enough, may meet with the sacred one.", "Oh! I wish to be lucky enough one day to see the god himself on one of my pilgrimages to the shrine."], 
 },
 
 "scarred_bunny" : {
@@ -221,14 +221,20 @@
 	"icon" : "up_hand",
 	"text" : ["Howdy! Welcome, hero, to my RPG (role-playing game), the game where you get to live out your wildest dreams as the hero of a new world.", "I'm the left hand of god, here to show you what's up. Please press \"ENTER\" and use the arrow keys to progress dialog."],
 	"choices": [ 
-		{"text" : "OK", "next" : "hand_tutorial2"},
-		{"text" : "Got it!!!", "next" : "hand_tutorial2"},
+		{"text" : "OK", "next" : "hand_tutorial1.5"},
+		{"text" : "Got it!!!", "next" : "hand_tutorial1.5"},
 	], 
+},
+"hand_tutorial1.5" : {
+	"name": "Left Hand of God", 
+	"icon" : "up_hand",
+	"text" : ["Great job! Next, please talk to my dear friend, the wolf, by moving near enough and clicking."],
+	"next" : "hand_tutorial2"
 },
 "hand_tutorial2" : {
 	"name": "Left Hand of God", 
 	"icon" : "up_hand",
-	"text" : ["And -AAAAH! Be careful! \"CLICK\" to attack before they kill you!"],
+	"text" : ["And -AAAAH! Be careful! \"CLICK\" or press \"SPACE\" to attack before they kill you!"],
 	"action": ["play_anim intro_slimes"],
 },
 "house" : {
@@ -254,7 +260,7 @@
 "guard_portal_3" : {
 	"name": "Moon Bunny Guard", 
 	"icon": "bunny_default", 
-	"text" : ["(The guard smiles.)", "Have you heard? Some monster killed the local god.", "Good thing we hired a hero with a shiny red sword to deal with the monsters lurking about. :)"],
+	"text" : ["(The guard smiles.)", "Have you heard? Some monster killed the local god.", "Good thing we hired a hero with a shiny red sword to deal with the monster."],
 	"next" : "guard_portal_4"
 },
 
@@ -264,7 +270,7 @@
 },
 
 "ending" : {
-	"text" : ["(The hero's shiny red sword flashes and slays the monster.)", "...", "(To pass on, please close the game.)"]
+	"text" : ["(The true hero's shiny red sword flashes and slays the monster. Finally, the god-killer has been extinguished.)", "...", "(To pass on, please close the game.)"]
 },
 
 "portal_1" : {
@@ -284,5 +290,21 @@
 "merchant3" : {
 	"text" : ["(The merchant grins...) \nGood choice, my dear."],
 	"action": ["emit_signal trade_sword", "set has_traded true"],
+},
+"right_sign" : {
+	"text" : ["East: Moon Bunny Village"]
+},
+"shrine" : {
+	"text" : ["It's an ancient shrine of the local bunny god. Enscripted in faint lettering on its side: \"The way is to live in harmony. All life is precious.\"."]
+},
+"boss" : {
+	"name": "God", 
+	"text" : ["(Before you, a blinding aura shines.)", "(It is the local moon bunny's god.)"]
+},
+"boss_killed" : {
+	"text" : ["Congrats! You have killed the god of the moon bunnies. Sacred Amulet obtained!"]
+},
+"villager" : {
+	"text" : ["AAAAAAAAAAAAAAAAAAH! Rumor has it that the devil himself has arisen and killed god. AAAAAAAAAAAAAAAH!!!!"]
 }
 }

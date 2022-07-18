@@ -28,6 +28,14 @@
 	"type" : "equipment",
 	"description" : "Sacred amulet of the moon bunny gods.",
 	"add_hp": 0,
+},
+
+"meat" : {
+	"name" : "Succulent Meat",
+	"icon" : "res://Assets/Items/meat.png",
+	"type" : "food",
+	"description" : "Succulent meat of the bunny.",
+	"add_hp": 10,
 }
 
 }

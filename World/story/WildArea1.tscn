@@ -1,16 +1,28 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Assets/32Tileset.png" type="Texture" id=1]
 [ext_resource path="res://utils/area/Place.gd" type="Script" id=2]
-[ext_resource path="res://utils/TalkableItem.tscn" type="PackedScene" id=3]
+[ext_resource path="res://utils/TalkableItem.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Monsters/FireFrog.tscn" type="PackedScene" id=4]
 [ext_resource path="res://utils/area/Teleport.tscn" type="PackedScene" id=5]
 [ext_resource path="res://utils/Camera.tscn" type="PackedScene" id=6]
 [ext_resource path="res://utils/Player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Enviro/godShrine.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Enviro/Bush.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Enviro/godRay.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Monsters/Dandelion.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Assets/Enviro/godRay2.png" type="Texture" id=12]
+[ext_resource path="res://Audio/SFX/hit.wav" type="AudioStream" id=13]
+[ext_resource path="res://utils/enemy/Stats.gd" type="Script" id=14]
+[ext_resource path="res://utils/area/SoftCollision.gd" type="Script" id=15]
+[ext_resource path="res://utils/enemy/HealthBar.tscn" type="PackedScene" id=16]
+[ext_resource path="res://utils/enemy/WanderController.tscn" type="PackedScene" id=17]
+[ext_resource path="res://utils/Monster.gd" type="Script" id=18]
 [ext_resource path="res://Assets/Enviro/Tree.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Assets/Monsters/Bat.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Assets/Monsters/rabbit2.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Monsters/rabbit1.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Enviro/Bramble.tscn" type="PackedScene" id=23]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -71,6 +83,52 @@ resource_local_to_scene = true
 } ]
 1/z_index = 0
 
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 22 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=7]
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 19.0675
+
+[sub_resource type="GDScript" id=9]
+script/source = "extends Area2D
+# used by player and enemy monsters
+
+export var knockback_vector = Vector2.ZERO
+export var damage = 10 # weapon attack power
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 11.674
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 30.347, 13.8265 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 38.3699, 24.5893 )
+
 [node name="GeneralPlace" type="Node"]
 script = ExtResource( 2 )
 
@@ -78,7 +136,7 @@ script = ExtResource( 2 )
 tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( -65537, 1, 0, -131072, 1, 0, -131071, 1, 0, -131070, 1, 0, -131069, 1, 0, -131068, 1, 0, -131067, 1, 0, -131066, 1, 0, -131065, 1, 0, -131064, 1, 0, -131063, 1, 0, -131062, 1, 0, -131061, 1, 0, -131060, 1, 0, -131059, 1, 0, -131058, 1, 0, -131057, 1, 0, -131056, 1, 0, -131055, 1, 0, -131054, 1, 0, -131053, 1, 0, -131052, 1, 0, -131051, 1, 0, -1, 1, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -65518, 0, 0, -65517, 0, 0, -65516, 0, 0, -65515, 1, 0, 65535, 1, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 65538, 5, 0, 3, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 3, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 1, 0, 131071, 1, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 65536, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 2, 65550, 0, 0, 65551, 0, 65537, 65552, 0, 65539, 65553, 0, 0, 65554, 0, 0, 65555, 0, 0, 65556, 0, 0, 65557, 1, 0, 196607, 1, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 65539, 131075, 0, 65538, 131076, 0, 0, 131077, 0, 3, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 65539, 131085, 0, 0, 131086, 0, 3, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0, 131090, 0, 0, 131091, 0, 0, 131092, 0, 0, 131093, 1, 0, 262143, 1, 0, 196608, 0, 0, 196609, 0, 1, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 3, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 2, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 65540, 196628, 0, 0, 196629, 1, 0, 327679, 1, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 3, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 3, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 0, 65538, 262160, 0, 0, 262161, 0, 0, 262162, 0, 0, 262163, 0, 0, 262164, 0, 0, 262165, 1, 0, 393215, 1, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 1, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 65536, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 65539, 327699, 0, 0, 327700, 0, 0, 327701, 1, 0, 458751, 1, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 65537, 393221, 0, 0, 393222, 0, 65537, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 0, 65540, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 393236, 0, 0, 393237, 1, 0, 524287, 1, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 65539, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 2, 458772, 0, 0, 458773, 1, 0, 589823, 1, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 3, 524295, 0, 0, 524296, 0, 0, 524297, 0, 65539, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 1, 524302, 0, 0, 524303, 0, 65537, 524304, 0, 0, 524305, 0, 65540, 524306, 0, 0, 524307, 0, 0, 524308, 0, 0, 524309, 1, 0, 655359, 1, 0, 589824, 0, 0, 589825, 0, 65539, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 65537, 589834, 0, 0, 589835, 0, 65536, 589836, 0, 0, 589837, 0, 0, 589838, 0, 4, 589839, 0, 1, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 1, 0, 720895, 1, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 65539, 655364, 0, 0, 655365, 0, 0, 655366, 0, 1, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 65540, 655372, 0, 4, 655373, 0, 0, 655374, 0, 0, 655375, 0, 3, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 0, 0, 655381, 1, 0, 786431, 1, 0, 720896, 0, 0, 720897, 0, 0, 720898, 0, 2, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 65540, 720904, 0, 0, 720905, 0, 0, 720906, 0, 65538, 720907, 0, 0, 720908, 0, 65540, 720909, 0, 65536, 720910, 0, 0, 720911, 0, 65538, 720912, 0, 0, 720913, 0, 0, 720914, 0, 0, 720915, 0, 3, 720916, 0, 0, 720917, 1, 0, 851967, 1, 0, 786432, 0, 0, 786433, 0, 0, 786434, 0, 0, 786435, 0, 1, 786436, 0, 65537, 786437, 0, 0, 786438, 0, 65536, 786439, 0, 65539, 786440, 0, 0, 786441, 0, 0, 786442, 0, 0, 786443, 0, 0, 786444, 0, 0, 786445, 0, 0, 786446, 0, 65537, 786447, 0, 65539, 786448, 0, 65539, 786449, 0, 0, 786450, 0, 65539, 786451, 0, 0, 786452, 0, 0, 786453, 1, 0, 917503, 1, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 3, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851980, 0, 65536, 851981, 0, 0, 851982, 0, 0, 851983, 0, 0, 851984, 0, 0, 851985, 0, 65536, 851986, 0, 0, 851987, 0, 0, 851988, 0, 0, 851989, 1, 0, 983039, 1, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 65540, 917510, 0, 3, 917511, 0, 0, 917512, 0, 1, 917513, 0, 0, 917514, 0, 0, 917515, 0, 65540, 917516, 0, 65537, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 2, 917521, 0, 0, 917522, 0, 65536, 917523, 0, 0, 917524, 0, 0, 917525, 1, 0, 1048575, 1, 0, 983040, 0, 0, 983041, 0, 0, 983042, 0, 0, 983043, 0, 0, 983044, 0, 0, 983045, 0, 0, 983046, 0, 0, 983047, 0, 0, 983048, 0, 0, 983049, 0, 0, 983050, 0, 0, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983054, 0, 0, 983055, 0, 0, 983056, 0, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 983060, 0, 0, 983061, 1, 0, 1114111, 1, 0, 1048576, 1, 0, 1048577, 1, 0, 1048578, 1, 0, 1048579, 1, 0, 1048580, 1, 0, 1048581, 1, 0, 1048582, 1, 0, 1048583, 1, 0, 1048584, 1, 0, 1048585, 1, 0, 1048586, 1, 0, 1048587, 1, 0, 1048588, 1, 0, 1048589, 1, 0, 1048590, 1, 0, 1048591, 1, 0, 1048592, 1, 0, 1048593, 1, 0, 1048594, 1, 0, 1048595, 1, 0, 1048596, 1, 0, 1048597, 1, 0 )
+tile_data = PoolIntArray( -1, 1, 0, -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, -65533, 1, 0, -65532, 1, 0, -65531, 1, 0, -65530, 1, 0, -65529, 1, 0, -65528, 1, 0, -65527, 1, 0, -65526, 1, 0, -65525, 1, 0, -65524, 1, 0, -65523, 1, 0, -65522, 1, 0, -65521, 1, 0, -65520, 1, 0, -65519, 1, 0, -65518, 1, 0, -65517, 1, 0, -65516, 1, 0, -65515, 1, 0, -65514, 1, 0, -65513, 1, 0, -65512, 1, 0, -65511, 1, 0, -65510, 1, 0, -65509, 1, 0, -65508, 1, 0, -65507, 1, 0, -65506, 1, 0, -65505, 1, 0, -65504, 1, 0, -65503, 1, 0, -65502, 1, 0, -65501, 1, 0, -65500, 1, 0, -65499, 1, 0, -65498, 1, 0, -65497, 1, 0, -65496, 1, 0, -65495, 1, 0, -65494, 1, 0, -65493, 1, 0, 65535, 1, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 30, 0, 0, 31, 0, 0, 32, 0, 0, 33, 0, 0, 34, 0, 0, 35, 0, 0, 36, 0, 0, 37, 0, 0, 38, 0, 0, 39, 0, 0, 40, 0, 0, 41, 0, 0, 42, 0, 0, 43, 1, 0, 131071, 1, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 65536, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 2, 65550, 0, 0, 65551, 0, 65537, 65552, 0, 65539, 65553, 0, 0, 65554, 0, 0, 65555, 0, 0, 65556, 0, 0, 65557, 0, 0, 65558, 0, 0, 65559, 0, 0, 65560, 0, 3, 65561, 0, 0, 65562, 0, 0, 65563, 0, 0, 65564, 0, 0, 65565, 0, 3, 65566, 0, 0, 65567, 0, 0, 65568, 0, 0, 65569, 0, 0, 65570, 0, 4, 65571, 0, 65539, 65572, 0, 0, 65573, 0, 0, 65574, 0, 0, 65575, 0, 0, 65576, 0, 0, 65577, 0, 0, 65578, 0, 0, 65579, 1, 0, 196607, 1, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 65539, 131075, 0, 65538, 131076, 0, 0, 131077, 0, 3, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 65539, 131085, 0, 0, 131086, 0, 3, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0, 131090, 0, 0, 131091, 0, 0, 131092, 0, 0, 131093, 0, 0, 131094, 0, 0, 131095, 0, 0, 131096, 0, 0, 131097, 0, 3, 131098, 0, 0, 131099, 0, 0, 131100, 0, 0, 131101, 0, 0, 131102, 0, 0, 131103, 0, 65538, 131104, 0, 0, 131105, 0, 0, 131106, 0, 65538, 131107, 0, 0, 131108, 0, 2, 131109, 0, 0, 131110, 0, 0, 131111, 0, 0, 131112, 0, 0, 131113, 0, 0, 131114, 0, 0, 131115, 1, 0, 262143, 1, 0, 196608, 0, 0, 196609, 0, 1, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 3, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 2, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 65540, 196628, 0, 0, 196629, 0, 65538, 196630, 0, 1, 196631, 0, 0, 196632, 0, 0, 196633, 0, 0, 196634, 0, 65536, 196635, 0, 0, 196636, 0, 0, 196637, 0, 0, 196638, 0, 1, 196639, 0, 0, 196640, 0, 0, 196641, 0, 0, 196642, 0, 0, 196643, 0, 0, 196644, 0, 65539, 196645, 0, 0, 196646, 0, 0, 196647, 0, 2, 196648, 0, 0, 196649, 0, 0, 196650, 0, 0, 196651, 1, 0, 327679, 1, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 3, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 3, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 0, 65538, 262160, 0, 0, 262161, 0, 0, 262162, 0, 0, 262163, 0, 0, 262164, 0, 0, 262165, 0, 0, 262166, 0, 3, 262167, 0, 0, 262168, 0, 0, 262169, 0, 0, 262170, 0, 0, 262171, 0, 0, 262172, 0, 65539, 262173, 0, 0, 262174, 0, 0, 262175, 0, 65536, 262176, 0, 0, 262177, 0, 0, 262178, 0, 65539, 262179, 0, 0, 262180, 0, 0, 262181, 0, 0, 262182, 0, 0, 262183, 0, 0, 262184, 0, 0, 262185, 0, 0, 262186, 0, 0, 262187, 1, 0, 393215, 1, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 1, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 65536, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 65539, 327699, 0, 0, 327700, 0, 0, 327701, 0, 0, 327702, 0, 0, 327703, 0, 65540, 327704, 0, 0, 327705, 0, 0, 327706, 0, 0, 327707, 0, 0, 327708, 0, 0, 327709, 0, 3, 327710, 0, 0, 327711, 0, 65539, 327712, 0, 0, 327713, 0, 0, 327714, 0, 65537, 327715, 0, 65539, 327716, 0, 0, 327717, 0, 0, 327718, 0, 3, 327719, 0, 0, 327720, 0, 0, 327721, 0, 0, 327722, 0, 0, 327723, 1, 0, 458751, 1, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 65537, 393221, 0, 0, 393222, 0, 65537, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 0, 65540, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 393236, 0, 0, 393237, 0, 0, 393238, 0, 0, 393239, 0, 65540, 393240, 0, 0, 393241, 0, 0, 393242, 0, 0, 393243, 0, 0, 393244, 0, 0, 393245, 0, 65537, 393246, 0, 0, 393247, 0, 65536, 393248, 0, 0, 393249, 0, 0, 393250, 0, 0, 393251, 0, 0, 393252, 0, 0, 393253, 0, 0, 393254, 0, 4, 393255, 0, 65536, 393256, 0, 0, 393257, 0, 0, 393258, 0, 0, 393259, 1, 0, 524287, 1, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 65539, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 2, 458772, 0, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 458776, 0, 0, 458777, 0, 0, 458778, 0, 0, 458779, 0, 0, 458780, 0, 3, 458781, 0, 65540, 458782, 0, 0, 458783, 0, 0, 458784, 0, 0, 458785, 0, 0, 458786, 0, 0, 458787, 0, 65540, 458788, 0, 0, 458789, 0, 0, 458790, 0, 0, 458791, 0, 0, 458792, 0, 0, 458793, 0, 0, 458794, 0, 0, 458795, 1, 0, 589823, 1, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 3, 524295, 0, 0, 524296, 0, 0, 524297, 0, 65539, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 1, 524302, 0, 0, 524303, 0, 65537, 524304, 0, 0, 524305, 0, 65540, 524306, 0, 0, 524307, 0, 0, 524308, 0, 0, 524309, 0, 0, 524310, 0, 0, 524311, 0, 0, 524312, 0, 0, 524313, 0, 0, 524314, 0, 0, 524315, 0, 0, 524316, 0, 0, 524317, 0, 0, 524318, 0, 0, 524319, 0, 0, 524320, 0, 0, 524321, 0, 0, 524322, 0, 0, 524323, 0, 0, 524324, 0, 0, 524325, 0, 0, 524326, 0, 2, 524327, 0, 0, 524328, 0, 0, 524329, 0, 1, 524330, 0, 0, 524331, 1, 0, 655359, 1, 0, 589824, 0, 0, 589825, 0, 65539, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 65537, 589834, 0, 0, 589835, 0, 65536, 589836, 0, 0, 589837, 0, 0, 589838, 0, 4, 589839, 0, 1, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 589847, 0, 0, 589848, 0, 0, 589849, 0, 0, 589850, 0, 0, 589851, 0, 0, 589852, 0, 0, 589853, 0, 0, 589854, 0, 0, 589855, 0, 0, 589856, 0, 3, 589857, 0, 0, 589858, 0, 0, 589859, 0, 0, 589860, 0, 0, 589861, 0, 0, 589862, 0, 65540, 589863, 0, 65536, 589864, 0, 0, 589865, 0, 65540, 589866, 0, 0, 589867, 1, 0, 720895, 1, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 65539, 655364, 0, 0, 655365, 0, 0, 655366, 0, 1, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 65540, 655372, 0, 4, 655373, 0, 0, 655374, 0, 0, 655375, 0, 3, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 0, 65540, 655381, 0, 0, 655382, 0, 0, 655383, 0, 0, 655384, 0, 0, 655385, 0, 0, 655386, 0, 0, 655387, 0, 0, 655388, 0, 65539, 655389, 0, 0, 655390, 0, 0, 655391, 0, 0, 655392, 0, 0, 655393, 0, 0, 655394, 0, 0, 655395, 0, 2, 655396, 0, 1, 655397, 0, 0, 655398, 0, 0, 655399, 0, 1, 655400, 0, 0, 655401, 0, 0, 655402, 0, 0, 655403, 1, 0, 786431, 1, 0, 720896, 0, 0, 720897, 0, 0, 720898, 0, 2, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 65540, 720904, 0, 0, 720905, 0, 0, 720906, 0, 65538, 720907, 0, 0, 720908, 0, 65540, 720909, 0, 65536, 720910, 0, 0, 720911, 0, 65538, 720912, 0, 0, 720913, 0, 0, 720914, 0, 0, 720915, 0, 3, 720916, 0, 0, 720917, 0, 0, 720918, 0, 65537, 720919, 0, 0, 720920, 0, 1, 720921, 0, 0, 720922, 0, 0, 720923, 0, 0, 720924, 0, 0, 720925, 0, 0, 720926, 0, 0, 720927, 0, 0, 720928, 0, 65537, 720929, 0, 0, 720930, 0, 0, 720931, 0, 0, 720932, 0, 0, 720933, 0, 0, 720934, 0, 0, 720935, 0, 65537, 720936, 0, 0, 720937, 0, 0, 720938, 0, 0, 720939, 1, 0, 851967, 1, 0, 786432, 0, 0, 786433, 0, 0, 786434, 0, 0, 786435, 0, 1, 786436, 0, 65537, 786437, 0, 0, 786438, 0, 65536, 786439, 0, 65539, 786440, 0, 0, 786441, 0, 0, 786442, 0, 0, 786443, 0, 0, 786444, 0, 0, 786445, 0, 0, 786446, 0, 65537, 786447, 0, 65539, 786448, 0, 65539, 786449, 0, 0, 786450, 0, 65539, 786451, 0, 0, 786452, 0, 0, 786453, 0, 0, 786454, 0, 0, 786455, 0, 0, 786456, 0, 0, 786457, 0, 0, 786458, 0, 0, 786459, 0, 65536, 786460, 0, 0, 786461, 0, 0, 786462, 0, 0, 786463, 0, 3, 786464, 0, 0, 786465, 0, 0, 786466, 0, 0, 786467, 0, 0, 786468, 0, 0, 786469, 0, 0, 786470, 0, 0, 786471, 0, 0, 786472, 0, 0, 786473, 0, 0, 786474, 0, 0, 786475, 1, 0, 917503, 1, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 3, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851980, 0, 65536, 851981, 0, 0, 851982, 0, 0, 851983, 0, 0, 851984, 0, 0, 851985, 0, 65536, 851986, 0, 0, 851987, 0, 0, 851988, 0, 65536, 851989, 0, 65536, 851990, 0, 0, 851991, 0, 0, 851992, 0, 0, 851993, 0, 0, 851994, 0, 0, 851995, 0, 0, 851996, 0, 0, 851997, 0, 0, 851998, 0, 0, 851999, 0, 0, 852000, 0, 0, 852001, 0, 0, 852002, 0, 0, 852003, 0, 0, 852004, 0, 0, 852005, 0, 0, 852006, 0, 0, 852007, 0, 0, 852008, 0, 0, 852009, 0, 3, 852010, 0, 0, 852011, 1, 0, 983039, 1, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 65540, 917510, 0, 3, 917511, 0, 0, 917512, 0, 1, 917513, 0, 0, 917514, 0, 0, 917515, 0, 65540, 917516, 0, 65537, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 2, 917521, 0, 0, 917522, 0, 65536, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0, 917529, 0, 0, 917530, 0, 0, 917531, 0, 0, 917532, 0, 0, 917533, 0, 0, 917534, 0, 1, 917535, 0, 0, 917536, 0, 65538, 917537, 0, 0, 917538, 0, 0, 917539, 0, 0, 917540, 0, 0, 917541, 0, 0, 917542, 0, 0, 917543, 0, 0, 917544, 0, 3, 917545, 0, 0, 917546, 0, 0, 917547, 1, 0, 1048575, 1, 0, 983040, 0, 0, 983041, 0, 0, 983042, 0, 0, 983043, 0, 0, 983044, 0, 0, 983045, 0, 0, 983046, 0, 0, 983047, 0, 0, 983048, 0, 0, 983049, 0, 0, 983050, 0, 0, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983054, 0, 0, 983055, 0, 0, 983056, 0, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 983060, 0, 0, 983061, 0, 0, 983062, 0, 0, 983063, 0, 0, 983064, 0, 0, 983065, 0, 0, 983066, 0, 0, 983067, 0, 0, 983068, 0, 0, 983069, 0, 0, 983070, 0, 0, 983071, 0, 0, 983072, 0, 0, 983073, 0, 0, 983074, 0, 0, 983075, 0, 0, 983076, 0, 0, 983077, 0, 0, 983078, 0, 0, 983079, 0, 0, 983080, 0, 0, 983081, 0, 0, 983082, 0, 0, 983083, 1, 0, 1114111, 1, 0, 1048576, 1, 0, 1048577, 1, 0, 1048578, 1, 0, 1048579, 1, 0, 1048580, 1, 0, 1048581, 1, 0, 1048582, 1, 0, 1048583, 1, 0, 1048584, 1, 0, 1048585, 1, 0, 1048586, 1, 0, 1048587, 1, 0, 1048588, 1, 0, 1048589, 1, 0, 1048590, 1, 0, 1048591, 1, 0, 1048592, 1, 0, 1048593, 1, 0, 1048594, 1, 0, 1048595, 1, 0, 1048596, 1, 0, 1048597, 1, 0, 1048598, 1, 0, 1048599, 1, 0, 1048600, 1, 0, 1048601, 1, 0, 1048602, 1, 0, 1048603, 1, 0, 1048604, 1, 0, 1048605, 1, 0, 1048606, 1, 0, 1048607, 1, 0, 1048608, 1, 0, 1048609, 1, 0, 1048610, 1, 0, 1048611, 1, 0, 1048612, 1, 0, 1048613, 1, 0, 1048614, 1, 0, 1048615, 1, 0, 1048616, 1, 0, 1048617, 1, 0, 1048618, 1, 0, 1048619, 1, 0 )
 
 [node name="Camera" parent="." instance=ExtResource( 6 )]
 position = Vector2( 338.881, 173.225 )
@@ -94,91 +152,623 @@ remote_path = NodePath("../../../Camera")
 [node name="Enemies" type="YSort" parent="YSort"]
 
 [node name="Bat" parent="YSort/Enemies" instance=ExtResource( 20 )]
-position = Vector2( 426.072, 422.89 )
+position = Vector2( 667.964, 246.339 )
 
 [node name="Bat2" parent="YSort/Enemies" instance=ExtResource( 20 )]
-position = Vector2( 453.676, 87.8171 )
+position = Vector2( 187.513, 192.736 )
 
 [node name="FireFrog" parent="YSort/Enemies" instance=ExtResource( 4 )]
-position = Vector2( 180.904, 261.23 )
+position = Vector2( 442.17, 108.169 )
 
 [node name="FireFrog2" parent="YSort/Enemies" instance=ExtResource( 4 )]
-position = Vector2( 575.745, 265.99 )
+position = Vector2( 372.01, 428.092 )
+
+[node name="Light2D" type="Light2D" parent="YSort/Enemies"]
+position = Vector2( 1265.53, 140.438 )
+scale = Vector2( 2.56699, 3.61164 )
+z_index = 2
+texture = ExtResource( 10 )
+
+[node name="Light2D2" type="Light2D" parent="YSort/Enemies"]
+position = Vector2( 1060.17, 44.0041 )
+scale = Vector2( 1.73913, 1.90217 )
+z_index = 2
+texture = ExtResource( 12 )
+
+[node name="Light2D3" type="Light2D" parent="YSort/Enemies"]
+position = Vector2( 1114.91, 135.088 )
+scale = Vector2( 2.97027, 3.43084 )
+z_index = 2
+texture = ExtResource( 12 )
+
+[node name="Rabbit" type="KinematicBody2D" parent="YSort/Enemies"]
+position = Vector2( 1204.75, 140.912 )
+collision_layer = 16
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_group_": true
+}
+loots = [ "meat" ]
+chance_of_loot = 0.6
+chance_of_money = 0.2
+mon_name = "Bunny"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Enemies/Rabbit"]
+position = Vector2( 0, -12 )
+frames = SubResource( 6 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit"]
+position = Vector2( 0, -5 )
+rotation = 1.5708
+shape = SubResource( 7 )
+
+[node name="Hurtbox" type="Area2D" parent="YSort/Enemies/Rabbit"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit/Hurtbox"]
+position = Vector2( 0, -10 )
+shape = SubResource( 8 )
+
+[node name="Hitbox" type="Area2D" parent="YSort/Enemies/Rabbit"]
+collision_layer = 32
+collision_mask = 0
+script = SubResource( 9 )
+damage = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit/Hitbox"]
+position = Vector2( 0.618717, -9.36917 )
+
+[node name="Eyesight" type="Area2D" parent="YSort/Enemies/Rabbit"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit/Eyesight"]
+
+[node name="SoftCollision" type="Area2D" parent="YSort/Enemies/Rabbit"]
+collision_layer = 64
+collision_mask = 64
+script = ExtResource( 15 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit/SoftCollision"]
+shape = SubResource( 11 )
+
+[node name="Stats" type="Node" parent="YSort/Enemies/Rabbit"]
+script = ExtResource( 14 )
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="YSort/Enemies/Rabbit"]
+stream = ExtResource( 13 )
+
+[node name="Timer" type="Timer" parent="YSort/Enemies/Rabbit"]
+wait_time = 0.2
+
+[node name="WanderController" parent="YSort/Enemies/Rabbit" instance=ExtResource( 17 )]
+
+[node name="HealthBar" parent="YSort/Enemies/Rabbit" instance=ExtResource( 16 )]
+
+[node name="Rabbit2" type="KinematicBody2D" parent="YSort/Enemies"]
+position = Vector2( 1087.03, 102.23 )
+collision_layer = 16
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_group_": true
+}
+loots = [ "meat" ]
+chance_of_loot = 0.6
+chance_of_money = 0.2
+mon_name = "Bunny"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Enemies/Rabbit2"]
+position = Vector2( 0, -12 )
+frames = SubResource( 6 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit2"]
+position = Vector2( 0, -5 )
+rotation = 1.5708
+shape = SubResource( 7 )
+
+[node name="Hurtbox" type="Area2D" parent="YSort/Enemies/Rabbit2"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit2/Hurtbox"]
+position = Vector2( 0, -10 )
+shape = SubResource( 8 )
+
+[node name="Hitbox" type="Area2D" parent="YSort/Enemies/Rabbit2"]
+collision_layer = 32
+collision_mask = 0
+script = SubResource( 9 )
+damage = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit2/Hitbox"]
+position = Vector2( 0.618717, -9.36917 )
+
+[node name="Eyesight" type="Area2D" parent="YSort/Enemies/Rabbit2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit2/Eyesight"]
+
+[node name="SoftCollision" type="Area2D" parent="YSort/Enemies/Rabbit2"]
+collision_layer = 64
+collision_mask = 64
+script = ExtResource( 15 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit2/SoftCollision"]
+shape = SubResource( 11 )
+
+[node name="Stats" type="Node" parent="YSort/Enemies/Rabbit2"]
+script = ExtResource( 14 )
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="YSort/Enemies/Rabbit2"]
+stream = ExtResource( 13 )
+
+[node name="Timer" type="Timer" parent="YSort/Enemies/Rabbit2"]
+wait_time = 0.2
+
+[node name="WanderController" parent="YSort/Enemies/Rabbit2" instance=ExtResource( 17 )]
+
+[node name="HealthBar" parent="YSort/Enemies/Rabbit2" instance=ExtResource( 16 )]
+
+[node name="Rabbit3" type="KinematicBody2D" parent="YSort/Enemies"]
+position = Vector2( 957.529, 145.116 )
+collision_layer = 16
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_group_": true
+}
+loots = [ "meat" ]
+chance_of_loot = 0.6
+chance_of_money = 0.2
+mon_name = "Bunny"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Enemies/Rabbit3"]
+position = Vector2( 0, -12 )
+frames = SubResource( 6 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit3"]
+position = Vector2( 0, -5 )
+rotation = 1.5708
+shape = SubResource( 7 )
+
+[node name="Hurtbox" type="Area2D" parent="YSort/Enemies/Rabbit3"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit3/Hurtbox"]
+position = Vector2( 0, -10 )
+shape = SubResource( 8 )
+
+[node name="Hitbox" type="Area2D" parent="YSort/Enemies/Rabbit3"]
+collision_layer = 32
+collision_mask = 0
+script = SubResource( 9 )
+damage = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit3/Hitbox"]
+position = Vector2( 0.618717, -9.36917 )
+
+[node name="Eyesight" type="Area2D" parent="YSort/Enemies/Rabbit3"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit3/Eyesight"]
+
+[node name="SoftCollision" type="Area2D" parent="YSort/Enemies/Rabbit3"]
+collision_layer = 64
+collision_mask = 64
+script = ExtResource( 15 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit3/SoftCollision"]
+shape = SubResource( 11 )
+
+[node name="Stats" type="Node" parent="YSort/Enemies/Rabbit3"]
+script = ExtResource( 14 )
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="YSort/Enemies/Rabbit3"]
+stream = ExtResource( 13 )
+
+[node name="Timer" type="Timer" parent="YSort/Enemies/Rabbit3"]
+wait_time = 0.2
+
+[node name="WanderController" parent="YSort/Enemies/Rabbit3" instance=ExtResource( 17 )]
+
+[node name="HealthBar" parent="YSort/Enemies/Rabbit3" instance=ExtResource( 16 )]
+
+[node name="Rabbit4" type="KinematicBody2D" parent="YSort/Enemies"]
+position = Vector2( 959.579, 342.559 )
+collision_layer = 16
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_group_": true
+}
+loots = [ "meat" ]
+chance_of_loot = 0.6
+chance_of_money = 0.2
+mon_name = "Bunny"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Enemies/Rabbit4"]
+position = Vector2( 0, -12 )
+frames = SubResource( 6 )
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit4"]
+position = Vector2( 0, -5 )
+rotation = 1.5708
+shape = SubResource( 7 )
+
+[node name="Hurtbox" type="Area2D" parent="YSort/Enemies/Rabbit4"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit4/Hurtbox"]
+position = Vector2( 0, -10 )
+shape = SubResource( 8 )
+
+[node name="Hitbox" type="Area2D" parent="YSort/Enemies/Rabbit4"]
+collision_layer = 32
+collision_mask = 0
+script = SubResource( 9 )
+damage = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit4/Hitbox"]
+position = Vector2( 0.618717, -9.36917 )
+
+[node name="Eyesight" type="Area2D" parent="YSort/Enemies/Rabbit4"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit4/Eyesight"]
+
+[node name="SoftCollision" type="Area2D" parent="YSort/Enemies/Rabbit4"]
+collision_layer = 64
+collision_mask = 64
+script = ExtResource( 15 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit4/SoftCollision"]
+shape = SubResource( 11 )
+
+[node name="Stats" type="Node" parent="YSort/Enemies/Rabbit4"]
+script = ExtResource( 14 )
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="YSort/Enemies/Rabbit4"]
+stream = ExtResource( 13 )
+
+[node name="Timer" type="Timer" parent="YSort/Enemies/Rabbit4"]
+wait_time = 0.2
+
+[node name="WanderController" parent="YSort/Enemies/Rabbit4" instance=ExtResource( 17 )]
+
+[node name="HealthBar" parent="YSort/Enemies/Rabbit4" instance=ExtResource( 16 )]
+
+[node name="Rabbit5" type="KinematicBody2D" parent="YSort/Enemies"]
+position = Vector2( 1196.34, 283.864 )
+collision_layer = 16
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_group_": true
+}
+loots = [ "meat" ]
+chance_of_loot = 0.6
+chance_of_money = 0.2
+mon_name = "Bunny"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Enemies/Rabbit5"]
+position = Vector2( 0, -12 )
+frames = SubResource( 6 )
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit5"]
+position = Vector2( 0, -5 )
+rotation = 1.5708
+shape = SubResource( 7 )
+
+[node name="Hurtbox" type="Area2D" parent="YSort/Enemies/Rabbit5"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit5/Hurtbox"]
+position = Vector2( 0, -10 )
+shape = SubResource( 8 )
+
+[node name="Hitbox" type="Area2D" parent="YSort/Enemies/Rabbit5"]
+collision_layer = 32
+collision_mask = 0
+script = SubResource( 9 )
+damage = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit5/Hitbox"]
+position = Vector2( 0.618717, -9.36917 )
+
+[node name="Eyesight" type="Area2D" parent="YSort/Enemies/Rabbit5"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit5/Eyesight"]
+
+[node name="SoftCollision" type="Area2D" parent="YSort/Enemies/Rabbit5"]
+collision_layer = 64
+collision_mask = 64
+script = ExtResource( 15 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Enemies/Rabbit5/SoftCollision"]
+shape = SubResource( 11 )
+
+[node name="Stats" type="Node" parent="YSort/Enemies/Rabbit5"]
+script = ExtResource( 14 )
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="YSort/Enemies/Rabbit5"]
+stream = ExtResource( 13 )
+
+[node name="Timer" type="Timer" parent="YSort/Enemies/Rabbit5"]
+wait_time = 0.2
+
+[node name="WanderController" parent="YSort/Enemies/Rabbit5" instance=ExtResource( 17 )]
+
+[node name="HealthBar" parent="YSort/Enemies/Rabbit5" instance=ExtResource( 16 )]
+
+[node name="Shrine" type="StaticBody2D" parent="YSort" groups=[
+"save",
+]]
+position = Vector2( 1045.55, 254.108 )
+script = ExtResource( 3 )
+talk_id = "shrine"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Shrine"]
+position = Vector2( 0, -44 )
+frames = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Shrine"]
+position = Vector2( 0, -16 )
+shape = SubResource( 4 )
+
+[node name="Interact" type="Area2D" parent="YSort/Shrine"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Shrine/Interact"]
+position = Vector2( 0.943878, 3.72963 )
+shape = SubResource( 5 )
 
 [node name="Enviro" type="YSort" parent="YSort"]
 
 [node name="Bush3" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 72.4297, 267.52 )
+position = Vector2( 155.889, 477.754 )
 curr_type = 3
 
-[node name="Bush4" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 626.569, 368.192 )
+[node name="Bush7" parent="YSort/Enviro" instance=ExtResource( 9 )]
+position = Vector2( 489.717, 474.152 )
 curr_type = 2
 
-[node name="Bush5" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 633.696, 404.718 )
+[node name="Bush4" parent="YSort/Enviro" instance=ExtResource( 9 )]
+position = Vector2( 573.569, 84.192 )
+curr_type = 2
+
+[node name="Bush9" parent="YSort/Enviro" instance=ExtResource( 9 )]
+position = Vector2( 1240.31, 69.5999 )
+
+[node name="Bush10" parent="YSort/Enviro" instance=ExtResource( 9 )]
+position = Vector2( 1359.29, 116.743 )
+curr_type = 2
+
+[node name="Bush11" parent="YSort/Enviro" instance=ExtResource( 9 )]
+position = Vector2( 1248.82, 485.362 )
+
+[node name="Bush12" parent="YSort/Enviro" instance=ExtResource( 9 )]
+position = Vector2( 819.393, 505.614 )
+curr_type = 2
+
+[node name="Bush8" parent="YSort/Enviro" instance=ExtResource( 9 )]
+position = Vector2( 685.872, 39.6945 )
 curr_type = 3
+
+[node name="Bush5" parent="YSort/Enviro" instance=ExtResource( 9 )]
+position = Vector2( 515.696, 25.718 )
+curr_type = 3
+
+[node name="Dandelion" parent="YSort/Enviro" instance=ExtResource( 11 )]
+position = Vector2( 141.732, 96.0814 )
+
+[node name="Dandelion2" parent="YSort/Enviro" instance=ExtResource( 11 )]
+position = Vector2( 166.56, 102.951 )
+
+[node name="Dandelion3" parent="YSort/Enviro" instance=ExtResource( 11 )]
+position = Vector2( 117.56, 112.951 )
 
 [node name="Tree" parent="YSort/Enviro" instance=ExtResource( 19 )]
-position = Vector2( 64.8423, 489.562 )
+position = Vector2( 84.4855, 80.7999 )
 curr_type = 3
 
-[node name="Dandelion" parent="YSort/Enviro/Tree" instance=ExtResource( 11 )]
-position = Vector2( 515.83, -339.432 )
-
-[node name="Dandelion2" parent="YSort/Enviro/Tree" instance=ExtResource( 11 )]
-position = Vector2( 540.658, -332.562 )
-
-[node name="Dandelion3" parent="YSort/Enviro/Tree" instance=ExtResource( 11 )]
-position = Vector2( 491.658, -322.562 )
-
 [node name="Tree2" parent="YSort/Enviro" instance=ExtResource( 19 )]
-position = Vector2( 610.072, 136.766 )
+position = Vector2( 643.072, 85.766 )
+
+[node name="Tree17" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 772.327, 46.5659 )
+curr_type = 3
+
+[node name="Tree18" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 1260.74, 37.0307 )
+curr_type = 3
+
+[node name="Tree19" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 1342.94, 479.619 )
+curr_type = 2
 
 [node name="Tree3" parent="YSort/Enviro" instance=ExtResource( 19 )]
-position = Vector2( 640.478, 222.326 )
+position = Vector2( 597.478, 38.326 )
 
 [node name="Tree4" parent="YSort/Enviro" instance=ExtResource( 19 )]
-position = Vector2( 636.235, 507.998 )
+position = Vector2( 666.048, 507.824 )
+curr_type = 2
+
+[node name="Tree9" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 628.586, 437.82 )
+curr_type = 2
+
+[node name="Tree10" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 525.289, 509.117 )
+curr_type = 3
+
+[node name="Tree11" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 434.175, 500.641 )
+curr_type = 2
+
+[node name="Tree12" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 97.6433, 507.244 )
+curr_type = 3
+
+[node name="Tree13" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 43.7133, 463.978 )
+curr_type = 3
+
+[node name="Tree14" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 258.304, 93.8074 )
+curr_type = 3
+
+[node name="Tree15" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 316.575, 57.7856 )
+curr_type = 3
+
+[node name="Tree16" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 465.959, 53.5478 )
+curr_type = 3
+
+[node name="Tree7" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 1289.26, 510.513 )
+curr_type = 2
+
+[node name="Tree20" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 731.884, 501.701 )
+
+[node name="Tree8" parent="YSort/Enviro" instance=ExtResource( 19 )]
+position = Vector2( 1312.47, 69.4398 )
 curr_type = 2
 
 [node name="Tree5" parent="YSort/Enviro" instance=ExtResource( 19 )]
-position = Vector2( 42.2639, 187.678 )
+position = Vector2( 45.7287, 33.7375 )
 curr_type = 3
 
 [node name="Tree6" parent="YSort/Enviro" instance=ExtResource( 19 )]
-position = Vector2( 90.195, 163.292 )
+position = Vector2( 135.195, 38.292 )
 
 [node name="Bush6" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 607.86, 461.736 )
+position = Vector2( 579.384, 473.914 )
 
 [node name="Bush" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 54.9859, 240.419 )
+position = Vector2( 220.986, 45.419 )
 curr_type = 2
 
 [node name="Bush2" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 30.0407, 288.527 )
+position = Vector2( 242.176, 502.119 )
+
+[node name="Bramble" parent="YSort/Enviro" instance=ExtResource( 23 )]
+
+[node name="Bramble7" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 790.014, 5.2788 )
+
+[node name="Bramble8" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 631.014, 5.2788 )
+
+[node name="Bramble9" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 395.409, 11.5784 )
+
+[node name="Bramble10" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 260.598, 5.2788 )
+
+[node name="Bramble11" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 360.131, 500.428 )
+scale = Vector2( 1, -1 )
+
+[node name="Bramble12" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 217.76, 507.987 )
+scale = Vector2( 1, -1 )
+
+[node name="Bramble13" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 623.455, 509.247 )
+scale = Vector2( 1, -1 )
+
+[node name="Bramble14" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 71.6096, 501.688 )
+rotation = 0.191986
+scale = Vector2( 1, -1 )
+
+[node name="Bramble15" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 71.6096, 501.688 )
+rotation = 0.191986
+scale = Vector2( 1, -1 )
+
+[node name="Bramble2" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 1157.31, 18.6878 )
+
+[node name="Bramble3" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 1038.17, 24.0181 )
+
+[node name="Bramble4" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 1357.17, 211.018 )
+rotation = 1.5708
+
+[node name="Bramble5" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 1360.17, 329.018 )
+rotation = 1.5708
+
+[node name="Bramble6" parent="YSort/Enviro" instance=ExtResource( 23 )]
+position = Vector2( 1387.17, 58.0181 )
+rotation = 0.933751
 
 [node name="EnterPos" type="Node2D" parent="."]
 
 [node name="enter_0" type="Position2D" parent="EnterPos"]
-position = Vector2( 334.76, 21.1534 )
+position = Vector2( 50.76, 240.153 )
 
 [node name="enter_1" type="Position2D" parent="EnterPos"]
-position = Vector2( 299.203, 458.009 )
+position = Vector2( 1052.92, 453.024 )
 
 [node name="Teleport" parent="." instance=ExtResource( 5 )]
-position = Vector2( 334.637, -50.7849 )
+position = Vector2( -5.36301, 107.215 )
+rotation = 1.5708
 new_scene_path = "res://World/story/MoonBunnyEntrance.tscn"
 to_pos_id = 1
 
 [node name="Teleport2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 300.734, 528.741 )
+position = Vector2( 1147.89, 524.066 )
 new_scene_path = "res://World/story/WildArea2.tscn"
 
-[node name="TalkableItem" parent="." instance=ExtResource( 3 )]
-
+[connection signal="area_entered" from="YSort/Enemies/Rabbit/Hurtbox" to="YSort/Enemies/Rabbit" method="_on_Hurtbox_area_entered"]
+[connection signal="body_shape_entered" from="YSort/Enemies/Rabbit/Hurtbox" to="YSort/Enemies/Rabbit" method="_on_Hitbox_body_shape_entered"]
+[connection signal="body_shape_entered" from="YSort/Enemies/Rabbit/Eyesight" to="YSort/Enemies/Rabbit" method="_on_Eyesight_body_shape_entered"]
+[connection signal="body_shape_exited" from="YSort/Enemies/Rabbit/Eyesight" to="YSort/Enemies/Rabbit" method="_on_Eyesight_body_shape_exited"]
+[connection signal="no_health" from="YSort/Enemies/Rabbit/Stats" to="YSort/Enemies/Rabbit" method="_on_Stats_no_health"]
+[connection signal="timeout" from="YSort/Enemies/Rabbit/Timer" to="YSort/Enemies/Rabbit" method="_on_Timer_timeout"]
+[connection signal="area_entered" from="YSort/Enemies/Rabbit2/Hurtbox" to="YSort/Enemies/Rabbit2" method="_on_Hurtbox_area_entered"]
+[connection signal="body_shape_entered" from="YSort/Enemies/Rabbit2/Hurtbox" to="YSort/Enemies/Rabbit2" method="_on_Hitbox_body_shape_entered"]
+[connection signal="body_shape_entered" from="YSort/Enemies/Rabbit2/Eyesight" to="YSort/Enemies/Rabbit2" method="_on_Eyesight_body_shape_entered"]
+[connection signal="body_shape_exited" from="YSort/Enemies/Rabbit2/Eyesight" to="YSort/Enemies/Rabbit2" method="_on_Eyesight_body_shape_exited"]
+[connection signal="no_health" from="YSort/Enemies/Rabbit2/Stats" to="YSort/Enemies/Rabbit2" method="_on_Stats_no_health"]
+[connection signal="timeout" from="YSort/Enemies/Rabbit2/Timer" to="YSort/Enemies/Rabbit2" method="_on_Timer_timeout"]
+[connection signal="area_entered" from="YSort/Enemies/Rabbit3/Hurtbox" to="YSort/Enemies/Rabbit3" method="_on_Hurtbox_area_entered"]
+[connection signal="body_shape_entered" from="YSort/Enemies/Rabbit3/Hurtbox" to="YSort/Enemies/Rabbit3" method="_on_Hitbox_body_shape_entered"]
+[connection signal="body_shape_entered" from="YSort/Enemies/Rabbit3/Eyesight" to="YSort/Enemies/Rabbit3" method="_on_Eyesight_body_shape_entered"]
+[connection signal="body_shape_exited" from="YSort/Enemies/Rabbit3/Eyesight" to="YSort/Enemies/Rabbit3" method="_on_Eyesight_body_shape_exited"]
+[connection signal="no_health" from="YSort/Enemies/Rabbit3/Stats" to="YSort/Enemies/Rabbit3" method="_on_Stats_no_health"]
+[connection signal="timeout" from="YSort/Enemies/Rabbit3/Timer" to="YSort/Enemies/Rabbit3" method="_on_Timer_timeout"]
+[connection signal="area_entered" from="YSort/Enemies/Rabbit4/Hurtbox" to="YSort/Enemies/Rabbit4" method="_on_Hurtbox_area_entered"]
+[connection signal="body_shape_entered" from="YSort/Enemies/Rabbit4/Hurtbox" to="YSort/Enemies/Rabbit4" method="_on_Hitbox_body_shape_entered"]
+[connection signal="body_shape_entered" from="YSort/Enemies/Rabbit4/Eyesight" to="YSort/Enemies/Rabbit4" method="_on_Eyesight_body_shape_entered"]
+[connection signal="body_shape_exited" from="YSort/Enemies/Rabbit4/Eyesight" to="YSort/Enemies/Rabbit4" method="_on_Eyesight_body_shape_exited"]
+[connection signal="no_health" from="YSort/Enemies/Rabbit4/Stats" to="YSort/Enemies/Rabbit4" method="_on_Stats_no_health"]
+[connection signal="timeout" from="YSort/Enemies/Rabbit4/Timer" to="YSort/Enemies/Rabbit4" method="_on_Timer_timeout"]
+[connection signal="area_entered" from="YSort/Enemies/Rabbit5/Hurtbox" to="YSort/Enemies/Rabbit5" method="_on_Hurtbox_area_entered"]
+[connection signal="body_shape_entered" from="YSort/Enemies/Rabbit5/Hurtbox" to="YSort/Enemies/Rabbit5" method="_on_Hitbox_body_shape_entered"]
+[connection signal="body_shape_entered" from="YSort/Enemies/Rabbit5/Eyesight" to="YSort/Enemies/Rabbit5" method="_on_Eyesight_body_shape_entered"]
+[connection signal="body_shape_exited" from="YSort/Enemies/Rabbit5/Eyesight" to="YSort/Enemies/Rabbit5" method="_on_Eyesight_body_shape_exited"]
+[connection signal="no_health" from="YSort/Enemies/Rabbit5/Stats" to="YSort/Enemies/Rabbit5" method="_on_Stats_no_health"]
+[connection signal="timeout" from="YSort/Enemies/Rabbit5/Timer" to="YSort/Enemies/Rabbit5" method="_on_Timer_timeout"]
+[connection signal="body_shape_entered" from="YSort/Shrine/Interact" to="YSort/Shrine" method="_on_Interact_body_shape_entered"]
+[connection signal="body_shape_exited" from="YSort/Shrine/Interact" to="YSort/Shrine" method="_on_Interact_body_shape_exited"]
 [connection signal="switch_to" from="Teleport" to="." method="_on_Teleport_switch_to"]
 [connection signal="switch_to" from="Teleport2" to="." method="_on_Teleport_switch_to"]
-
-[editable path="TalkableItem"]

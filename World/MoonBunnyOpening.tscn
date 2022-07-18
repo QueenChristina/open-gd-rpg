@@ -34,107 +34,118 @@ position = Vector2( 338.881, 173.225 )
 remote_path = NodePath("../../../Camera")
 
 [node name="Bunny" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 547.051, 248.739 )
+position = Vector2( 567.816, 162.846 )
 talk_id = "bunny_general"
 
 [node name="Bunny2" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 490.418, 356.34 )
+position = Vector2( 675.417, 236.468 )
 talk_id = "bunny_general2"
 
 [node name="Enviro" type="YSort" parent="YSort"]
 
 [node name="Bush" parent="YSort/Enviro" instance=ExtResource( 7 )]
-position = Vector2( 135.965, 99.7712 )
+position = Vector2( 58.5673, 39.3632 )
 
 [node name="Bush2" parent="YSort/Enviro" instance=ExtResource( 7 )]
-position = Vector2( 556.182, 113.592 )
+position = Vector2( 461.795, 44.6892 )
 curr_type = 2
 
 [node name="Bush4" parent="YSort/Enviro" instance=ExtResource( 7 )]
-position = Vector2( 474.065, 123.975 )
+position = Vector2( 364.576, 58.8477 )
+
+[node name="Bush6" parent="YSort/Enviro" instance=ExtResource( 7 )]
+position = Vector2( 349.474, 524.178 )
+curr_type = 2
 
 [node name="Bush5" parent="YSort/Enviro" instance=ExtResource( 7 )]
-position = Vector2( 223.938, 202.969 )
+position = Vector2( 127.663, 66.1072 )
 curr_type = 3
 
 [node name="Tree" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 572, 324 )
+position = Vector2( 312.435, 101.246 )
 curr_type = 2
 
 [node name="Tree2" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 128, 199 )
+position = Vector2( 63.8165, 412.316 )
 
 [node name="Tree5" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 641.158, 402.125 )
+position = Vector2( 614.73, 95.3659 )
 
 [node name="Tree4" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 630.753, 157.281 )
+position = Vector2( 229.607, 49.6793 )
 
 [node name="Tree3" parent="YSort/Enviro" instance=ExtResource( 9 )]
-position = Vector2( 105.026, 473.891 )
+position = Vector2( 213.572, 539.018 )
 
 [node name="Boat" parent="YSort/Enviro" instance=ExtResource( 8 )]
-position = Vector2( 152.658, 166.81 )
+position = Vector2( 170.592, 489.615 )
 talk_id = "boat"
 
 [node name="Boat2" parent="YSort/Enviro" instance=ExtResource( 8 )]
-position = Vector2( 147.102, 216.813 )
+position = Vector2( 266.03, 514.133 )
 talk_id = "boat"
 
 [node name="Boat3" parent="YSort/Enviro" instance=ExtResource( 8 )]
-position = Vector2( 545.54, 300.945 )
+position = Vector2( 228.398, 345.307 )
 talk_id = "boat"
 
 [node name="Bush3" parent="YSort/Enviro" instance=ExtResource( 7 )]
-position = Vector2( 516.539, 162.673 )
+position = Vector2( 401.386, 101.321 )
 curr_type = 3
 
 [node name="River" parent="YSort/Enviro" instance=ExtResource( 10 )]
-position = Vector2( 4.95702, 209.019 )
-rotation = 0.577704
+position = Vector2( -180.042, 475.192 )
+rotation = -0.289725
+z_index = 0
+
+[node name="River2" parent="YSort/Enviro" instance=ExtResource( 10 )]
+position = Vector2( 394.777, 308.126 )
+rotation = 0.205949
 z_index = 0
 
 [node name="Enemies" type="YSort" parent="YSort"]
 
 [node name="Slime" parent="YSort/Enemies" instance=ExtResource( 11 )]
-position = Vector2( 447.227, 150.052 )
+position = Vector2( 158.401, 145.333 )
 
 [node name="Slime2" parent="YSort/Enemies" instance=ExtResource( 11 )]
-position = Vector2( 238.47, 269.428 )
+position = Vector2( 289.439, 303.407 )
 
 [node name="Slime3" parent="YSort/Enemies" instance=ExtResource( 11 )]
-position = Vector2( 405.808, 421.63 )
+position = Vector2( 433.18, 173.391 )
 
 [node name="Dandelion" parent="YSort/Enemies" instance=ExtResource( 12 )]
-position = Vector2( 190.021, 106.866 )
+position = Vector2( 95.6335, 341.891 )
 
 [node name="Dandelion2" parent="YSort/Enemies" instance=ExtResource( 12 )]
-position = Vector2( 208.014, 156.55 )
+position = Vector2( 146.662, 359.483 )
 
 [node name="Dandelion3" parent="YSort/Enemies" instance=ExtResource( 12 )]
-position = Vector2( 182.558, 145.589 )
+position = Vector2( 106.104, 383.445 )
 
 [node name="Dandelion4" parent="YSort/Enemies" instance=ExtResource( 12 )]
-position = Vector2( 607.399, 373.02 )
+position = Vector2( 457.323, 104.016 )
 
 [node name="Dandelion5" parent="YSort/Enemies" instance=ExtResource( 12 )]
-position = Vector2( 572.912, 380.749 )
+position = Vector2( 494.57, 81.5408 )
 
 [node name="EnterPos" type="Node2D" parent="."]
 
 [node name="enter_0" type="Position2D" parent="EnterPos"]
-position = Vector2( 373.651, 54.6889 )
+position = Vector2( 44.2388, 134.918 )
 
 [node name="enter_1" type="Position2D" parent="EnterPos"]
-position = Vector2( 550.502, 482.891 )
+position = Vector2( 627.9, 319.601 )
 
 [node name="Teleport" parent="." instance=ExtResource( 3 )]
-position = Vector2( 331.904, -7.047 )
+position = Vector2( -13.554, 167.57 )
+rotation = 1.5708
 new_scene_path = "res://World/story/Opening.tscn"
 to_pos_id = 2
 
 [node name="Teleport2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 323.241, 557.26 )
+position = Vector2( 691.352, 355.271 )
+rotation = 1.5708
 new_scene_path = "res://World/story/MoonBunnyEntrance.tscn"
 
 [connection signal="switch_to" from="Teleport" to="." method="_on_Teleport_switch_to"]

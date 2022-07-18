@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Assets/32Tileset.png" type="Texture" id=1]
 [ext_resource path="res://utils/area/Place.gd" type="Script" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://Assets/Monsters/fist.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Enviro/Bush.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Assets/Enviro/Tree.tscn" type="PackedScene" id=20]
+[ext_resource path="res://UI/TransTheme.tres" type="Theme" id=21]
+[ext_resource path="res://World/story/Boss.gd" type="Script" id=22]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -185,7 +187,35 @@ height = 176.792
 radius = 52.4759
 height = 33.8618
 
-[node name="GeneralPlace" type="Node"]
+[sub_resource type="Animation" id=18]
+resource_name = "intro_label"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.2, 2.5, 3.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="GodArea" type="Node"]
 script = ExtResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -469,6 +499,60 @@ to_pos_id = 1
 
 [node name="TalkableItem" parent="." instance=ExtResource( 3 )]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -149.413
+margin_top = 15.874
+margin_right = 155.587
+margin_bottom = 55.874
+grow_horizontal = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -151.5
+margin_top = -20.0
+margin_right = 153.5
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/ColorRect/VBoxContainer"]
+margin_top = 3.0
+margin_right = 305.0
+margin_bottom = 28.0
+grow_horizontal = 2
+theme = ExtResource( 21 )
+text = "God of the Moon Bunnies"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/ColorRect/VBoxContainer"]
+margin_top = 32.0
+margin_right = 305.0
+margin_bottom = 36.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+autoplay = "intro_label"
+anims/intro_label = SubResource( 18 )
+
+[node name="Boss" type="Node" parent="."]
+script = ExtResource( 22 )
+
+[connection signal="killed" from="YSort/Enemies/God" to="Boss" method="_on_God_killed"]
 [connection signal="area_entered" from="YSort/Enemies/God/Hurtbox" to="YSort/Enemies/God" method="_on_Hurtbox_area_entered"]
 [connection signal="body_shape_entered" from="YSort/Enemies/God/Hurtbox" to="YSort/Enemies/God" method="_on_Hitbox_body_shape_entered"]
 [connection signal="body_shape_entered" from="YSort/Enemies/God/Eyesight" to="YSort/Enemies/God" method="_on_Eyesight_body_shape_entered"]

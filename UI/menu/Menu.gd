@@ -9,9 +9,10 @@ var curr_selected_item_container = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PlayerStats.connect("inventory_changed", self, "on_inventory_changed")
-
+	for item_container in item_grid_container.get_children():
+		item_container.connect("pressed", self, "on_item_container_selected", [item_container])
+		
 func on_inventory_changed():
-	var item_index = 0
 	# Erase the inventory
 	for item_container in item_grid_container.get_children():
 		item_container.icon = null
@@ -21,10 +22,8 @@ func on_inventory_changed():
 		item_container.amount = 0
 		item_name.text = ""
 		item_description.text = ""
-		
-		if !item_container.is_connected("pressed", self, "on_item_container_selected"):
-			item_container.connect("pressed", self, "on_item_container_selected", [item_container])
 	
+	var item_index = 0
 	# Populate the inventory
 	for item in PlayerStats.inventory.keys():
 		var item_data = Globals.db_items[item]
@@ -36,8 +35,10 @@ func on_inventory_changed():
 		item_container.add_hp = item_data["add_hp"]
 		item_container.amount = PlayerStats.inventory[item]
 		item_index += 1
+		item_container.connect("pressed", self, "on_item_container_selected", [item_container]) # testing
 		
 func on_item_container_selected(item_container):
+	print("selected item " + item_container.item_name)
 	curr_selected_item_container = item_container
 	item_name.text = item_container.item_name
 	item_description.text = item_container.item_description
@@ -51,7 +52,7 @@ func on_item_used(item_container):
 	PlayerStats.health += item_container.add_hp
 	PlayerStats.remove_inventory_item(item_container.item_key, 1)
 	on_inventory_changed()
-	if curr_selected_item_container.add_hp != 0:
+	if item_container.add_hp != 0:
 		use_item_button.disabled = false
 	else:
 		use_item_button.disabled = true
