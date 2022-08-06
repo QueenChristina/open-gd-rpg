@@ -1,16 +1,18 @@
 # open-gd-rpg
 Open source basic action J-RPG in Godot.
 
+[Demo](https://qintin.itch.io/rpg-in-rpg)
+
 ## Features
 * [Player animations, initial RPG, and movement as done by HeartBeast](https://www.youtube.com/watch?v=mAbG8Oi-SvQ&list=PL9FzW-m48fn2SlrW0KoLT4n5egNdX-W9a&index=1)
 * Scene switching
 * [Advanced dialog system](https://github.com/QueenChristina/gd_dialog)
 * Inventory and Items system
 * Enemies/Monsters
-* Save system (incomplete)
+* Save system
 * Menu and settings (incomplete)
-* Quest System (incomplete)
-  * Receive quest logs after talking to NPCs.
+* Quest System
+  * Receive quest logs and rewards after talking to NPCs.
 * Leveling Sytem
   * Gain experience points and level up as you fight monsters.
 
