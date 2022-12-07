@@ -102,7 +102,7 @@ extents = Vector2( 15.9565, 15.0544 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 36.6161, 26.1311 )
 
-[sub_resource type="SpriteFrames" id=10]
+[sub_resource type="SpriteFrames" id=8]
 animations = [ {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
@@ -110,14 +110,13 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 17.0417, 11.1449 )
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 30.5346, 25.2866 )
 
-[sub_resource type="Animation" id=8]
-resource_name = "intro_slimes"
+[sub_resource type="Animation" id=11]
 length = 4.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("YSort/Slime:position")
@@ -168,7 +167,7 @@ tracks/3/keys = {
 "values": [ Vector2( 722.521, 321.408 ), Vector2( 523.246, 268.967 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=12]
 
 [node name="Opening" type="Node" groups=[
 "save",
@@ -292,7 +291,7 @@ __meta__ = {
 }
 talk_id = "wolf_quest"
 quest_title = "Wolfy Wants No Slimes"
-quest_description = "Kill all the slimes."
+quest_description = "Kill all the slimes. Talk to Wolfy again after to retrieve your reward."
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Wolf"]
 position = Vector2( -0.23597, -23.315 )
@@ -323,17 +322,17 @@ talk_id = "right_sign"
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Sign"]
 position = Vector2( 0, -39 )
-frames = SubResource( 10 )
+frames = SubResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Sign"]
 position = Vector2( 0.396851, -9.6504 )
-shape = SubResource( 11 )
+shape = SubResource( 9 )
 
 [node name="Interact" type="Area2D" parent="YSort/Sign"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Sign/Interact"]
 position = Vector2( 0, 16 )
-shape = SubResource( 12 )
+shape = SubResource( 10 )
 
 [node name="EnterPos" type="Node2D" parent="."]
 
@@ -354,8 +353,8 @@ new_scene_path = "res://World/MoonBunnyOpening.tscn"
 [node name="OpeningAnimationPlayer" type="AnimationPlayer" parent="." groups=[
 "save",
 ]]
-anims/intro_slimes = SubResource( 8 )
-anims/onboard = SubResource( 9 )
+anims/intro_slimes = SubResource( 11 )
+anims/onboard = SubResource( 12 )
 script = ExtResource( 13 )
 
 [connection signal="killed" from="YSort/Slime" to="YSort/Wolf" method="_on_slime_killed"]

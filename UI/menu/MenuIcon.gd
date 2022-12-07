@@ -8,4 +8,6 @@ func _ready():
 	menu = get_node(menu_path)
 
 func _on_MenuIcon_pressed():
-	menu.visible = !menu.visible
+	if not GameState.is_paused() and !menu.visible:
+		# Only open menu if not talking / not in cutscene
+		menu.visible = !menu.visible

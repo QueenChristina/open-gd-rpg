@@ -72,6 +72,96 @@ font_data = ExtResource( 14 )
 layer = 2
 script = ExtResource( 4 )
 
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" parent="Control" instance=ExtResource( 2 )]
+margin_left = -0.0162351
+margin_top = -0.0162201
+margin_right = -0.0162354
+margin_bottom = -0.0162048
+mouse_filter = 1
+
+[node name="money" type="Sprite" parent="Control"]
+position = Vector2( 47.0894, 15.6855 )
+texture = ExtResource( 12 )
+
+[node name="Heart" type="TextureRect" parent="Control"]
+margin_left = 499.89
+margin_top = 4.43669
+margin_right = 520.89
+margin_bottom = 25.4367
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EXP" type="TextureRect" parent="Control"]
+margin_left = 500.42
+margin_top = 32.1152
+margin_right = 521.42
+margin_bottom = 53.1152
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" type="TextureProgress" parent="Control"]
+margin_left = 524.0
+margin_top = 4.0
+margin_right = 636.0
+margin_bottom = 24.0
+value = 100.0
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExpBar" type="TextureProgress" parent="Control"]
+margin_left = 524.065
+margin_top = 31.6449
+margin_right = 636.065
+margin_bottom = 51.6449
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Money" type="Label" parent="Control"]
+margin_left = 63.0
+margin_top = 5.0
+margin_right = 93.0
+margin_bottom = 30.0
+theme = ExtResource( 11 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lv" type="Sprite" parent="Control"]
+position = Vector2( 449.961, 14.0009 )
+texture = ExtResource( 15 )
+
+[node name="Label" type="Label" parent="Control/lv"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 13.6249
+margin_top = -19.3153
+margin_right = 39.6249
+margin_bottom = 5.68467
+theme = ExtResource( 11 )
+text = " 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="DialogSmall" parent="." instance=ExtResource( 1 )]
 visible = false
 anchor_left = 0.5
@@ -202,96 +292,6 @@ custom_styles/panel = SubResource( 5 )
 
 [node name="PanelContainer" parent="DialogBlack/TextBox/Margin/HBox" index="0"]
 custom_styles/panel = SubResource( 6 )
-
-[node name="Control" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Menu" parent="Control" instance=ExtResource( 2 )]
-margin_left = -0.0162351
-margin_top = -0.0162201
-margin_right = -0.0162354
-margin_bottom = -0.0162048
-mouse_filter = 1
-
-[node name="money" type="Sprite" parent="Control"]
-position = Vector2( 47.0894, 15.6855 )
-texture = ExtResource( 12 )
-
-[node name="Heart" type="TextureRect" parent="Control"]
-margin_left = 499.89
-margin_top = 4.43669
-margin_right = 520.89
-margin_bottom = 25.4367
-texture = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EXP" type="TextureRect" parent="Control"]
-margin_left = 500.42
-margin_top = 32.1152
-margin_right = 521.42
-margin_bottom = 53.1152
-texture = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Health" type="TextureProgress" parent="Control"]
-margin_left = 524.0
-margin_top = 4.0
-margin_right = 636.0
-margin_bottom = 24.0
-value = 100.0
-texture_under = ExtResource( 7 )
-texture_progress = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ExpBar" type="TextureProgress" parent="Control"]
-margin_left = 524.065
-margin_top = 31.6449
-margin_right = 636.065
-margin_bottom = 51.6449
-texture_under = ExtResource( 7 )
-texture_progress = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Money" type="Label" parent="Control"]
-margin_left = 63.0
-margin_top = 5.0
-margin_right = 93.0
-margin_bottom = 30.0
-theme = ExtResource( 11 )
-text = "0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="lv" type="Sprite" parent="Control"]
-position = Vector2( 449.961, 14.0009 )
-texture = ExtResource( 15 )
-
-[node name="Label" type="Label" parent="Control/lv"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 13.6249
-margin_top = -19.3153
-margin_right = 39.6249
-margin_bottom = 5.68467
-theme = ExtResource( 11 )
-text = " 1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="QuestPanel" type="PanelContainer" parent="."]
 visible = false

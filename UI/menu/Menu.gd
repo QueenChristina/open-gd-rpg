@@ -42,6 +42,8 @@ func on_item_container_selected(item_container):
 	curr_selected_item_container = item_container
 	item_name.text = item_container.item_name
 	item_description.text = item_container.item_description
+	if use_item_button.is_connected("pressed", self, "on_item_used"):
+		use_item_button.disconnect("pressed", self, "on_item_used")
 	use_item_button.connect("pressed", self, "on_item_used", [item_container])
 	if item_container.add_hp != 0:
 		use_item_button.disabled = false
@@ -49,6 +51,7 @@ func on_item_container_selected(item_container):
 		use_item_button.disabled = true
 
 func on_item_used(item_container):
+	print("Used item " + item_container.item_name)
 	PlayerStats.health += item_container.add_hp
 	PlayerStats.remove_inventory_item(item_container.item_key, 1)
 	on_inventory_changed()
@@ -62,3 +65,8 @@ func _on_Menu_visibility_changed():
 		GameState.menu_opened = true
 	else:
 		GameState.menu_opened = false
+
+
+func _on_Button_pressed():
+	if self.visible:
+		self.visible = false
