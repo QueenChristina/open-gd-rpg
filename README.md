@@ -10,7 +10,7 @@ Open source basic action J-RPG in Godot.
 * Inventory and Items system
 * Enemies/Monsters
 * Save system
-* Menu and settings (incomplete)
+* Menu and settings
 * Quest System
   * Receive quest logs and rewards after talking to NPCs.
 * Leveling Sytem
@@ -60,7 +60,7 @@ Game data and globals saved in `GameSrc/GameHandlers.tscn`.
 
 Player stats (health, inventory) saved in autoloaded `PlayerStats.gd`.
 
-To save something's data, add them to the `save` group, and add `save` and `load` functions to save their data to a `save_game.data` dictionary with their own unique key. Game saving handled by GDQuest's `GameSaver` system.
+To save something's data, add them to the `save` group, and add `save` and `load` functions to save their data to a `save_game.data` dictionary with their own unique key. You can specify how the game handles saving an object with these functions. Game saving handled by GDQuest's `GameSaver` system.
 
 ## Based on:
 * [Heartbeast's action RPG tutorial](https://www.youtube.com/watch?v=mAbG8Oi-SvQ&list=PL9FzW-m48fn2SlrW0KoLT4n5egNdX-W9a&index=1)
@@ -68,3 +68,6 @@ To save something's data, add them to the `save` group, and add `save` and `load
 
 ## Credits
 Leveling sound: https://freesound.org/people/qubodup/sounds/442943/
+
+***
+If you found this project useful, I'd love to know! Send me a link to your own game anytime, I'd love to check it out. :)
